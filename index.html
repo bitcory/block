@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLOCK &amp; BRICKS Prompt Architect</title>
+  <style>
+    :root {
+      --bg-primary: #0d0f13;
+      --bg-secondary: #151820;
+      --bg-tertiary: #1c2030;
+      --bg-card: #1a1e2e;
+      --bg-input: #12151f;
+      --border: #2a2f42;
+      --border-hover: #3d4460;
+      --text-primary: #e8eaf0;
+      --text-secondary: #9498a8;
+      --text-muted: #5c6078;
+      --accent: #6c5ce7;
+      --accent-hover: #7d6ff0;
+      --accent-dim: rgba(108, 92, 231, 0.15);
+      --green: #00cec9;
+      --green-dim: rgba(0, 206, 201, 0.15);
+      --orange: #f39c12;
+      --orange-dim: rgba(243, 156, 18, 0.12);
+      --red: #e74c3c;
+      --red-dim: rgba(231, 76, 60, 0.12);
+      --tier1: #e74c3c;
+      --tier2: #f39c12;
+      --tier3: #6c5ce7;
+      --tier4: #5c6078;
+      --sidebar-width: 240px;
+      --header-height: 64px;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Header ───────────────────────────────────────── */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .header-logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .header-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-sm {
+      padding: 4px 10px;
+      font-size: 11px;
+    }
+
+    .btn.copied {
+      border-color: var(--green) !important;
+      color: var(--green) !important;
+    }
+
+    /* ── Layout ───────────────────────────────────────── */
+    .layout {
+      display: flex;
+      padding-top: var(--header-height);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Sidebar ──────────────────────────────────────── */
+    .sidebar {
+      width: var(--sidebar-width);
+      min-width: var(--sidebar-width);
+      height: 100%;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .sidebar-section {
+      padding: 20px 12px 10px;
+    }
+
+    .sidebar-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0 8px;
+      margin-bottom: 8px;
+    }
+
+    .brick-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 12px 16px;
+    }
+
+    .brick-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .brick-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .brick-list::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .brick-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      margin-bottom: 4px;
+      border: 1px solid var(--border);
+      background: var(--bg-tertiary);
+    }
+
+    .brick-nav-item:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card);
+    }
+
+    .brick-nav-item.active {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+    }
+
+    .brick-nav-name {
+      font-size: 12px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brick-nav-item.active .brick-nav-name {
+      color: var(--text-primary);
+    }
+
+    .brick-count span {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* ── Main ─────────────────────────────────────────── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .main-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-secondary);
+    }
+
+    .toolbar-tab {
+      padding: 6px 14px;
+      font-size: 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      background: none;
+      font-family: inherit;
+    }
+
+    .toolbar-tab:hover {
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+    }
+
+    .toolbar-tab.active {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-color: rgba(108, 92, 231, 0.3);
+    }
+
+    .toolbar-spacer {
+      flex: 1;
+    }
+
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    .main-content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .main-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .main-content::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    /* ── Views ─────────────────────────────────────────── */
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    /* ── JSON Input ────────────────────────────────────── */
+    .json-textarea {
+      width: 100%;
+      min-height: 400px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 20px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .json-textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .json-textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .json-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .json-status {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: 8px;
+    }
+
+    .json-status.success {
+      color: var(--green);
+    }
+
+    .json-status.error {
+      color: var(--red);
+    }
+
+    .sample-link {
+      font-size: 12px;
+      color: var(--accent);
+      cursor: pointer;
+      margin-left: auto;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+
+    .sample-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Bricks Editor ────────────────────────────────── */
+    .metadata-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-item-label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .meta-item-value {
+      font-size: 13px;
+      color: var(--text-primary);
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 10px;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+    }
+
+    .meta-item-value:focus {
+      border-color: var(--accent);
+    }
+
+    .bricks-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .brick-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .brick-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .brick-card.highlight {
+      border-color: var(--green);
+      box-shadow: 0 0 8px rgba(0, 206, 201, 0.3);
+    }
+
+    .brick-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: var(--bg-tertiary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brick-card-id {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .brick-card-id.t1 {
+      background: var(--tier1);
+    }
+
+    .brick-card-id.t2 {
+      background: var(--tier2);
+    }
+
+    .brick-card-id.t3 {
+      background: var(--tier3);
+    }
+
+    .brick-card-id.t4 {
+      background: var(--tier4);
+    }
+
+    .brick-card-title {
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+
+    .brick-card-key {
+      font-size: 11px;
+      color: var(--green);
+      background: var(--green-dim);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    .brick-card-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      flex: 1;
+    }
+
+    /* ── Dual Pane Body ───────────────────────────────── */
+    .brick-card-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .brick-pane {
+      padding: 10px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brick-pane+.brick-pane {
+      border-left: 1px solid var(--border);
+    }
+
+    .brick-pane-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brick-pane-label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .brick-pane-label.en {
+      color: var(--accent);
+    }
+
+    .brick-pane-label.ko {
+      color: var(--green);
+    }
+
+    .brick-card-textarea {
+      width: 100%;
+      min-height: 56px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 10px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .brick-card-textarea:focus {
+      border-color: var(--accent);
+    }
+
+    /* ── Output View ──────────────────────────────────── */
+    .output-section {
+      margin-bottom: 24px;
+    }
+
+    .output-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .output-section-title {
+      font-size: 13px;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+    }
+
+    .output-block {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .output-block::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .output-block::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .output-block::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    /* ── Toast ─────────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-size: 12px;
+      font-family: inherit;
+      z-index: 200;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      background: var(--green-dim);
+      border: 1px solid var(--green);
+      color: var(--green);
+    }
+
+    .toast.error {
+      background: var(--red-dim);
+      border: 1px solid var(--red);
+      color: var(--red);
+    }
+
+    /* ── Empty State ──────────────────────────────────── */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.3;
+    }
+
+    .empty-state-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="header-left">
+      <a class="header-logo" href="javascript:void(0)" id="logoHome">
+        <img class="header-logo-icon" src="logo.png" alt="B">
+        <div>
+          <div class="header-title">BLOCK &amp; BRICK</div>
+        </div>
+      </a>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-primary" id="btnExportAll" disabled>
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12l7-7 7 7" />
+        </svg>
+        <span>전체 내보내기</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">브릭 목록</div>
+      </div>
+      <div class="brick-list" id="brickList"></div>
+    </aside>
+
+    <main class="main">
+      <div class="main-toolbar">
+        <button class="toolbar-tab active" data-view="json">JSON 입력</button>
+        <button class="toolbar-tab" data-view="bricks">브릭 편집</button>
+        <button class="toolbar-tab" data-view="output">출력 결과</button>
+        <div class="toolbar-spacer"></div>
+        <button class="btn btn-sm" id="btnReset">초기화</button>
+      </div>
+
+      <div class="main-content">
+        <!-- JSON Input -->
+        <div class="view active" id="viewJson">
+          <div class="json-input-area">
+            <textarea class="json-textarea" id="jsonInput" placeholder='Block &amp; Bricks JSON을 여기에 붙여넣으세요...
+
+{
+  "prompt_metadata": { "title": "...", "style": "...", "aspect_ratio": "--ar 3:4" },
+  "bricks": { "archetype": "...", ... },
+  "translations": { "archetype": "...", ... },
+  "brick_priority_order": ["archetype", "composition", ...]
+}'></textarea>
+            <div class="json-actions">
+              <button class="btn btn-primary" id="btnApply">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                JSON 적용
+              </button>
+              <span class="json-status" id="jsonStatus"></span>
+              <button class="sample-link" id="btnSample">샘플 JSON 불러오기</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bricks Editor -->
+        <div class="view" id="viewBricks">
+          <div id="bricksEmpty" class="empty-state">
+            <div class="empty-state-icon">{ }</div>
+            <div class="empty-state-text">아직 불러온 브릭이 없습니다.<br>JSON 입력 탭에서 데이터를 붙여넣고 적용하세요.</div>
+          </div>
+          <div id="bricksContent" style="display:none;">
+            <div class="metadata-bar" id="metadataBar"></div>
+            <div class="bricks-grid" id="bricksGrid"></div>
+          </div>
+        </div>
+
+        <!-- Output -->
+        <div class="view" id="viewOutput">
+          <div id="outputEmpty" class="empty-state">
+            <div class="empty-state-icon">{ }</div>
+            <div class="empty-state-text">아직 출력 결과가 없습니다.<br>브릭을 먼저 불러오고 편집하세요.</div>
+          </div>
+          <div id="outputContent" style="display:none;">
+            <div class="output-section">
+              <div class="output-section-header">
+                <div class="output-section-title">PART 3: Structured Text Prompt</div>
+                <button class="btn btn-sm" onclick="copyOutput('outputStructured')">복사</button>
+              </div>
+              <div class="output-block" id="outputStructured"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const BRICK_DEFS = [
+      { id: 'B01', key: 'archetype', name: 'Archetype', nameKo: '아키타입', sub: 'Identity + Demographics + Physique', tier: 1 },
+      { id: 'B02', key: 'skin_surface', name: 'Skin / Surface', nameKo: '표면 질감', sub: 'Texture + Imperfection + Materiality', tier: 3 },
+      { id: 'B03', key: 'target_object', name: 'Target / Object', nameKo: '핵심 오브젝트', sub: 'Focal Item + Anchor + Interaction', tier: 2 },
+      { id: 'B04', key: 'contrast_subject', name: 'Contrast Subject', nameKo: '대비 요소', sub: 'Scale Foil + Tension Element', tier: 4 },
+      { id: 'B05', key: 'expression', name: 'Expression', nameKo: '표정', sub: 'Emotion + Micro-Muscle + Gaze', tier: 3 },
+      { id: 'B06', key: 'pose', name: 'Pose', nameKo: '포즈', sub: 'Action Line + Silhouette + Weight', tier: 3 },
+      { id: 'B07', key: 'signature', name: 'Signature', nameKo: '시그니처 효과', sub: 'Atmosphere + VFX + Particles', tier: 2 },
+      { id: 'B08', key: 'environment', name: 'Environment', nameKo: '환경', sub: 'Location + Architecture + Weather', tier: 2 },
+      { id: 'B09', key: 'lighting', name: 'Lighting', nameKo: '조명', sub: 'Source + Temperature + Shadow', tier: 1 },
+      { id: 'B10', key: 'composition', name: 'Composition', nameKo: '구도', sub: 'Camera Angle + Hierarchy + Framing', tier: 1 },
+      { id: 'B11', key: 'camera', name: 'Camera', nameKo: '카메라', sub: 'Optics + Format + Rendering', tier: 4 },
+      { id: 'B12', key: 'exclusion', name: 'Exclusion', nameKo: '제외 영역', sub: 'Anti-Prompt + Avoidance Layer', tier: 4 },
+    ];
+
+    const PRIORITY_ORDER = [
+      'archetype', 'composition', 'lighting', 'target_object',
+      'environment', 'signature', 'skin_surface', 'expression',
+      'pose', 'camera', 'contrast_subject', 'exclusion'
+    ];
+
+    const LEGACY_MAP = {
+      'B01_archetype': 'archetype', 'B02_skin_surface': 'skin_surface', 'B03_target_object': 'target_object',
+      'B04_contrast_subject': 'contrast_subject', 'B05_expression': 'expression', 'B06_pose': 'pose',
+      'B07_signature': 'signature', 'B08_environment': 'environment', 'B09_lighting': 'lighting',
+      'B10_composition': 'composition', 'B11_camera': 'camera', 'B12_exclusion': 'exclusion',
+    };
+    const LEGACY_PRI = {
+      'B01': 'archetype', 'B02': 'skin_surface', 'B03': 'target_object', 'B04': 'contrast_subject',
+      'B05': 'expression', 'B06': 'pose', 'B07': 'signature', 'B08': 'environment',
+      'B09': 'lighting', 'B10': 'composition', 'B11': 'camera', 'B12': 'exclusion',
+    };
+
+    let state = {
+      metadata: {},
+      bricks: {},
+      translations: {},
+      priorityOrder: [...PRIORITY_ORDER],
+      loaded: false,
+    };
+
+    function defByKey(k) { return BRICK_DEFS.find(b => b.key === k); }
+    function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    // ── Sidebar ──────────────────────────────────────────
+    function renderSidebar() {
+      const list = document.getElementById('brickList');
+      list.innerHTML = '';
+      BRICK_DEFS.forEach(b => {
+        const el = document.createElement('div');
+        el.className = 'brick-nav-item';
+        el.innerHTML = `<div class="brick-nav-name">${b.nameKo}</div>`;
+        el.addEventListener('click', () => {
+          switchView('bricks');
+          setTimeout(() => {
+            const card = document.getElementById('card-' + b.key);
+            document.querySelectorAll('.brick-card.highlight').forEach(c => c.classList.remove('highlight'));
+            if (card) {
+              card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              card.classList.add('highlight');
+            }
+            document.querySelectorAll('.brick-nav-item').forEach(n => n.classList.remove('active'));
+            el.classList.add('active');
+          }, 50);
+        });
+        list.appendChild(el);
+      });
+    }
+
+    // ── View Switch ──────────────────────────────────────
+    function switchView(name) {
+      document.querySelectorAll('.toolbar-tab').forEach(t => t.classList.toggle('active', t.dataset.view === name));
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById('view' + name.charAt(0).toUpperCase() + name.slice(1)).classList.add('active');
+      if (name === 'output' && state.loaded) generateOutput();
+    }
+    document.querySelectorAll('.toolbar-tab').forEach(tab => {
+      tab.addEventListener('click', () => switchView(tab.dataset.view));
+    });
+
+    // ── JSON Apply ───────────────────────────────────────
+    document.getElementById('btnApply').addEventListener('click', applyJson);
+
+    function applyJson() {
+      const raw = document.getElementById('jsonInput').value.trim();
+      const st = document.getElementById('jsonStatus');
+      if (!raw) { st.className = 'json-status error'; st.textContent = 'JSON 데이터를 먼저 붙여넣으세요.'; return; }
+      let data;
+      try { data = JSON.parse(raw); } catch (e) { st.className = 'json-status error'; st.textContent = 'JSON 파싱 오류: ' + e.message; return; }
+
+      if (data.prompt_metadata) {
+        state.metadata = {
+          title: data.prompt_metadata.title || '',
+          style: data.prompt_metadata.style || '',
+          genre_preset: data.prompt_metadata.genre_preset || '',
+          aspect_ratio: data.prompt_metadata.aspect_ratio || '--ar 3:4',
+          target_platform: data.prompt_metadata.target_platform || '',
+        };
+      }
+
+      if (data.bricks) {
+        state.bricks = {};
+        BRICK_DEFS.forEach(b => {
+          const lk = Object.keys(LEGACY_MAP).find(k => LEGACY_MAP[k] === b.key);
+          state.bricks[b.key] = data.bricks[b.key] || data.bricks[lk] || '';
+        });
+      }
+
+      // translations
+      state.translations = {};
+      if (data.translations) {
+        BRICK_DEFS.forEach(b => {
+          state.translations[b.key] = data.translations[b.key] || '';
+        });
+      }
+
+      if (data.brick_priority_order && Array.isArray(data.brick_priority_order)) {
+        state.priorityOrder = data.brick_priority_order.map(i => LEGACY_PRI[i] || i);
+      } else {
+        state.priorityOrder = [...PRIORITY_ORDER];
+      }
+
+      state.loaded = true;
+      updateHeaderBadges();
+      renderSidebar();
+      renderBricksEditor();
+      renderOutput();
+
+      const fc = BRICK_DEFS.filter(b => state.bricks[b.key] && state.bricks[b.key].trim()).length;
+      st.className = 'json-status success';
+      st.textContent = `파싱 완료. ${fc}개 브릭 로드됨.`;
+      document.getElementById('btnExportAll').disabled = false;
+      showToast('JSON이 적용되었습니다', 'success');
+      setTimeout(() => switchView('bricks'), 400);
+    }
+
+    function updateHeaderBadges() {}
+
+    // ── Bricks Editor ────────────────────────────────────
+    function renderBricksEditor() {
+      if (!state.loaded) return;
+      document.getElementById('bricksEmpty').style.display = 'none';
+      document.getElementById('bricksContent').style.display = 'block';
+
+      // Metadata
+      const metaBar = document.getElementById('metadataBar');
+      metaBar.innerHTML = '';
+      [{ key: 'title', label: '제목' }, { key: 'style', label: '스타일' }, { key: 'genre_preset', label: '장르 프리셋' }, { key: 'aspect_ratio', label: '비율' }, { key: 'target_platform', label: '플랫폼' }].forEach(f => {
+        const div = document.createElement('div');
+        div.className = 'meta-item';
+        div.innerHTML = `<div class="meta-item-label">${f.label}</div><input class="meta-item-value" data-meta="${f.key}" value="${escHtml(state.metadata[f.key] || '')}">`;
+        metaBar.appendChild(div);
+      });
+      metaBar.querySelectorAll('input').forEach(inp => {
+        inp.addEventListener('input', () => { state.metadata[inp.dataset.meta] = inp.value; updateHeaderBadges(); });
+      });
+
+      // Brick cards (dual pane)
+      const grid = document.getElementById('bricksGrid');
+      grid.innerHTML = '';
+      BRICK_DEFS.forEach(b => {
+        const card = document.createElement('div');
+        card.className = 'brick-card';
+        card.id = 'card-' + b.key;
+        card.innerHTML = `
+          <div class="brick-card-header">
+            <span class="brick-card-id t${b.tier}">${b.nameKo}</span>
+            <span class="brick-card-key">${b.key}</span>
+            <span class="brick-card-subtitle">${b.sub}</span>
+          </div>
+          <div class="brick-card-body">
+            <div class="brick-pane">
+              <div class="brick-pane-header">
+                <span class="brick-pane-label en">ENGLISH</span>
+                <button class="btn btn-sm" data-copy-en="${b.key}">복사</button>
+              </div>
+              <textarea class="brick-card-textarea" data-brick-en="${b.key}" placeholder="English prompt...">${escHtml(state.bricks[b.key] || '')}</textarea>
+            </div>
+            <div class="brick-pane">
+              <div class="brick-pane-header">
+                <span class="brick-pane-label ko">번역</span>
+                <button class="btn btn-sm" data-copy-ko="${b.key}">복사</button>
+              </div>
+              <textarea class="brick-card-textarea" data-brick-ko="${b.key}" placeholder="한국어 번역...">${escHtml(state.translations[b.key] || '')}</textarea>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // Events: EN textareas
+      grid.querySelectorAll('[data-brick-en]').forEach(ta => {
+        autoResize(ta);
+        ta.addEventListener('input', () => {
+          state.bricks[ta.dataset.brickEn] = ta.value;
+          renderSidebar();
+          autoResize(ta);
+        });
+      });
+
+      // Events: KO textareas
+      grid.querySelectorAll('[data-brick-ko]').forEach(ta => {
+        autoResize(ta);
+        ta.addEventListener('input', () => {
+          state.translations[ta.dataset.brickKo] = ta.value;
+          renderSidebar();
+          autoResize(ta);
+        });
+      });
+
+      // Copy EN
+      grid.querySelectorAll('[data-copy-en]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = state.bricks[btn.dataset.copyEn] || '';
+          navigator.clipboard.writeText(val).then(() => { flashCopied(btn); });
+        });
+      });
+
+      // Copy KO
+      grid.querySelectorAll('[data-copy-ko]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = state.translations[btn.dataset.copyKo] || '';
+          navigator.clipboard.writeText(val).then(() => { flashCopied(btn); });
+        });
+      });
+
+    }
+
+    function flashCopied(btn) {
+      btn.classList.add('copied');
+      const orig = btn.textContent;
+      btn.textContent = '완료';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = orig; }, 1500);
+    }
+
+    function autoResize(ta) {
+      ta.style.height = 'auto';
+      ta.style.height = Math.max(56, ta.scrollHeight) + 'px';
+    }
+
+    // ── Output ───────────────────────────────────────────
+    function generateOutput() {
+      if (!state.loaded) return;
+      document.getElementById('outputEmpty').style.display = 'none';
+      document.getElementById('outputContent').style.display = 'block';
+      renderOutput();
+    }
+
+    function renderOutput() {
+      if (!state.loaded) return;
+
+      // Structured Text — (Name: value) per line
+      let lines = [];
+      state.priorityOrder.forEach(key => {
+        const def = defByKey(key); if (!def) return;
+        const val = (state.bricks[key] || '').trim();
+        if (val && !val.startsWith('N/A')) lines.push(`(${def.name}: ${val})`);
+      });
+      BRICK_DEFS.forEach(b => {
+        if (!state.priorityOrder.includes(b.key)) {
+          const val = (state.bricks[b.key] || '').trim();
+          if (val && !val.startsWith('N/A')) lines.push(`(${b.name}: ${val})`);
+        }
+      });
+
+      document.getElementById('outputStructured').textContent = lines.join('\n');
+    }
+
+    function copyOutput(id) {
+      navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => showToast('클립보드에 복사되었습니다', 'success'));
+    }
+
+    document.getElementById('btnExportAll').addEventListener('click', () => {
+      if (!state.loaded) return;
+      generateOutput();
+      const full = document.getElementById('outputStructured').textContent;
+      navigator.clipboard.writeText(full).then(() => showToast('전체 내용이 클립보드에 복사되었습니다', 'success'));
+    });
+
+    document.getElementById('btnReset').addEventListener('click', () => {
+      if (!confirm('모든 데이터를 초기화할까요?')) return;
+      state = { metadata: {}, bricks: {}, translations: {}, priorityOrder: [...PRIORITY_ORDER], loaded: false };
+      document.getElementById('jsonInput').value = '';
+      document.getElementById('jsonStatus').textContent = '';
+      document.getElementById('bricksEmpty').style.display = '';
+      document.getElementById('bricksContent').style.display = 'none';
+      document.getElementById('outputEmpty').style.display = '';
+      document.getElementById('outputContent').style.display = 'none';
+      document.getElementById('btnExportAll').disabled = true;
+      renderSidebar(); switchView('json');
+      showToast('초기화 완료', 'success');
+    });
+
+    // ── Sample ───────────────────────────────────────────
+    document.getElementById('btnSample').addEventListener('click', () => {
+      const sample = {
+        "prompt_metadata": {
+          "title": "The Little Shield-Maiden",
+          "style": "Pixar Stylized 3D",
+          "genre_preset": "PIXAR / STYLIZED 3D",
+          "aspect_ratio": "--ar 3:4",
+          "target_platform": "midjourney_v7"
+        },
+        "bricks": {
+          "archetype": "A spunky 8-year-old Viking girl with stylized Pixar proportions, a slightly oversized head for expressiveness, and a sturdy, energetic build.",
+          "skin_surface": "Velvety skin texture with rosy sun-kissed cheeks, a single cute star-shaped band-aid on her left knee, and soft peach fuzz visible in the rim light.",
+          "target_object": "A round wooden shield painted with a bright teal dragon, held firmly by thick leather straps that show slight fraying at the edges.",
+          "contrast_subject": "A tiny, fluffy white arctic fox pup peeking out from her oversized fur-lined boot, contrasting her brave warrior stance.",
+          "expression": "A wide, confident gap-toothed grin with sparkling turquoise eyes and eyebrows raised in excitement.",
+          "pose": "A dynamic hero pose with one foot resting on a rock, chest puffed out, and her red braided hair whipping in the wind.",
+          "signature": "Swirling autumn leaves and golden dust motes dancing in the air, with soft volumetric clouds caught in the sunset glow.",
+          "environment": "A breathtaking Nordic cliffside overlooking a sparkling fjord, featuring weathered gray rocks with patches of bright green moss.",
+          "lighting": "Cinematic three-point studio lighting with a warm golden-hour key light, cool blue shadows, and a bright rim light defining her silhouette.",
+          "composition": "A low-angle medium-full shot (MFS) to make the small character feel heroic, using the cliff edge as a leading line.",
+          "camera": "35mm equivalent focal length, f/5.6 for deep focus, rendered with cinematic ray-tracing and high-fidelity 3D animation sub-surface scattering.",
+          "exclusion": "No realistic human proportions, no gritty textures, no blood, no scary expressions, no animals on human skin, no fur growing on human."
+        },
+        "translations": {
+          "archetype": "픽사 스타일의 비율을 가진 활기찬 8세 바이킹 소녀, 표현력을 위해 약간 큰 머리와 튼튼하고 에너지 넘치는 체격.",
+          "skin_surface": "장밋빛 햇살에 그을린 뺨을 가진 부드러운 피부 질감, 왼쪽 무릎에 붙은 귀여운 별 모양 반창고, 림 라이트에 비치는 부드러운 솜털.",
+          "target_object": "밝은 청록색 용이 그려진 둥근 나무 방패, 가장자리가 약간 해진 두꺼운 가죽 끈으로 단단히 고정됨.",
+          "contrast_subject": "소녀의 커다란 털 부츠 속에서 내다보는 작고 푹신한 하얀 북극여우 새끼, 소녀의 용감한 전사 자세와 대비됨.",
+          "expression": "반짝이는 터쿼이즈색 눈동자와 흥분으로 치켜올라간 눈썹, 자신감 넘치는 벌어진 앞니 미소.",
+          "pose": "바위 위에 한 발을 올리고 가슴을 펴고 서 있는 역동적인 영웅 자세, 바람에 휘날리는 붉은 땋은 머리.",
+          "signature": "공중에서 춤추는 소용돌이치는 가을 낙엽과 황금빛 먼지 입자, 석양빛을 머금은 부드러운 입체적인 구름.",
+          "environment": "반짝이는 피오르가 내려다보이는 숨막히는 북유럽 절벽, 밝은 녹색 이끼가 낀 풍화된 회색 바위들.",
+          "lighting": "따뜻한 골든 아워 키 라이트, 차가운 푸른 그림자, 실루엣을 강조하는 밝은 림 라이트가 조화된 시네마틱 3점 조명.",
+          "composition": "작은 캐릭터를 영웅적으로 보이게 하는 로우 앵글 미디엄 풀샷, 절벽 끝을 유도선으로 활용.",
+          "camera": "35mm 환산 초점 거리, 깊은 심도를 위한 f/5.6, 시네마틱 레이트레이싱과 고정밀 3D 애니메이션 하이라이트 렌더링.",
+          "exclusion": "실사 인체 비율 금지, 거친 질감 금지, 피 금지, 무서운 표정 금지, 사람 피부 위의 동물 금지, 사람 몸에서 자라는 털 금지."
+        },
+        "concept_brief": "A spunky young Viking shield-maiden stands atop a Nordic cliff, gap-toothed grin blazing with confidence as autumn leaves swirl around her. Pixar-style warmth meets cinematic drama in a golden-hour hero moment.",
+        "brick_priority_order": ["archetype", "composition", "lighting", "target_object", "environment", "signature", "skin_surface", "expression", "pose", "camera", "contrast_subject", "exclusion"]
+      };
+      document.getElementById('jsonInput').value = JSON.stringify(sample, null, 2);
+      showToast('샘플 JSON이 로드되었습니다', 'success');
+    });
+
+    function showToast(msg, type) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.className = 'toast ' + type;
+      setTimeout(() => t.classList.add('show'), 10);
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    document.getElementById('logoHome').addEventListener('click', () => location.reload());
+    renderSidebar();
+  </script>
+</body>
+
+</html>
