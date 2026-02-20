@@ -639,6 +639,27 @@
       color: var(--text-muted);
       line-height: 1.6;
     }
+
+    .btn-mint {
+      display: block;
+      width: 100%;
+      padding: 10px 0;
+      background: #00cec9;
+      color: #0d0f13;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .btn-mint:hover {
+      background: #00b5b1;
+    }
   </style>
 </head>
 
@@ -666,7 +687,8 @@
   <div class="layout">
     <aside class="sidebar">
       <div class="sidebar-section">
-        <div class="sidebar-label">브릭 목록</div>
+        <a href="https://gemini.google.com/gem/1rL_lXc76nS3qBLSgZDgQD4tNeo9k8gYJ?usp=sharing" target="_blank" class="btn-mint">이미지생성</a>
+        <div class="sidebar-label" style="margin-top: 16px;">브릭 목록</div>
       </div>
       <div class="brick-list" id="brickList"></div>
     </aside>
