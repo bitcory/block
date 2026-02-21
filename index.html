@@ -7,33 +7,33 @@
   <title>BLOCK &amp; BRICKS Prompt Architect</title>
   <style>
     :root {
-      --bg-primary: #0d0f13;
-      --bg-secondary: #151820;
-      --bg-tertiary: #1c2030;
-      --bg-card: #1a1e2e;
-      --bg-input: #12151f;
-      --border: #2a2f42;
-      --border-hover: #3d4460;
-      --text-primary: #e8eaf0;
-      --text-secondary: #9498a8;
-      --text-muted: #5c6078;
-      --accent: #6c5ce7;
-      --accent-hover: #7d6ff0;
-      --accent-dim: rgba(108, 92, 231, 0.15);
-      --green: #00cec9;
-      --green-dim: rgba(0, 206, 201, 0.15);
-      --orange: #f39c12;
-      --orange-dim: rgba(243, 156, 18, 0.12);
-      --red: #e74c3c;
-      --red-dim: rgba(231, 76, 60, 0.12);
-      --tier1: #e74c3c;
-      --tier2: #f39c12;
-      --tier3: #6c5ce7;
-      --tier4: #5c6078;
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-tertiary: #1a1a1a;
+      --bg-card: #141414;
+      --bg-input: #0e0e0e;
+      --border: #2c2c2c;
+      --border-hover: #444444;
+      --text-primary: #f5f5f5;
+      --text-secondary: #a0a0a0;
+      --text-muted: #666666;
+      --accent: #fcc419;
+      --accent-hover: #ffd43b;
+      --accent-dim: rgba(252, 196, 25, 0.12);
+      --green: #fcc419;
+      --green-dim: rgba(252, 196, 25, 0.10);
+      --orange: #fd7e14;
+      --orange-dim: rgba(253, 126, 20, 0.12);
+      --red: #fa5252;
+      --red-dim: rgba(250, 82, 82, 0.12);
+      --tier1: #fcc419;
+      --tier2: #fd7e14;
+      --tier3: #fab005;
+      --tier4: #666666;
       --sidebar-width: 240px;
-      --header-height: 64px;
-      --radius: 0px;
-      --radius-lg: 0px;
+      --header-height: 56px;
+      --radius: 4px;
+      --radius-lg: 6px;
     }
 
     * {
@@ -42,12 +42,16 @@
       box-sizing: border-box;
     }
 
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
     body {
-      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg-primary);
       color: var(--text-primary);
       min-height: 100vh;
       overflow: hidden;
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ── Header ───────────────────────────────────────── */
@@ -57,7 +61,7 @@
       left: 0;
       right: 0;
       height: var(--header-height);
-      background: var(--bg-secondary);
+      background: var(--bg-primary);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -89,8 +93,8 @@
 
     .header-title {
       font-size: 16px;
-      font-weight: 600;
-      color: var(--text-primary);
+      font-weight: 700;
+      color: var(--accent);
     }
 
     .header-right {
@@ -122,12 +126,14 @@
     .btn-primary {
       background: var(--accent);
       border-color: var(--accent);
-      color: #fff;
+      color: #000;
+      font-weight: 600;
     }
 
     .btn-primary:hover {
       background: var(--accent-hover);
       border-color: var(--accent-hover);
+      color: #000;
     }
 
     .btn-sm {
@@ -136,8 +142,8 @@
     }
 
     .btn.copied {
-      border-color: var(--green) !important;
-      color: var(--green) !important;
+      border-color: var(--accent) !important;
+      color: var(--accent) !important;
     }
 
     /* ── Layout ───────────────────────────────────────── */
@@ -201,40 +207,47 @@
       border-radius: var(--radius);
       cursor: pointer;
       transition: all 0.15s ease;
-      margin-bottom: 4px;
-      border: 1px solid var(--border);
-      background: var(--bg-tertiary);
+      margin-bottom: 2px;
+      border: 1px solid transparent;
+      background: transparent;
     }
 
     .brick-nav-item:hover {
-      border-color: var(--border-hover);
-      background: var(--bg-card);
+      background: var(--bg-tertiary);
     }
 
     .brick-nav-item.active {
-      background: var(--accent-dim);
+      background: var(--accent);
       border-color: var(--accent);
     }
 
     .brick-nav-name {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-secondary);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .brick-nav-item.active .brick-nav-name {
+    .brick-nav-item:hover .brick-nav-name {
       color: var(--text-primary);
+    }
+
+    .brick-nav-item.active .brick-nav-name {
+      color: #000;
+      font-weight: 600;
     }
 
     .brick-nav-count {
       font-size: 10px;
       color: var(--text-muted);
-      background: var(--bg-input);
       padding: 1px 6px;
-      border-radius: 0px;
+      border-radius: var(--radius);
       flex-shrink: 0;
+    }
+
+    .brick-nav-item.active .brick-nav-count {
+      color: rgba(0,0,0,0.5);
     }
 
     /* ── Main ─────────────────────────────────────────── */
@@ -251,7 +264,7 @@
       gap: 8px;
       padding: 12px 24px;
       border-bottom: 1px solid var(--border);
-      background: var(--bg-secondary);
+      background: var(--bg-primary);
     }
 
     .toolbar-tab {
@@ -272,9 +285,10 @@
     }
 
     .toolbar-tab.active {
-      background: var(--accent-dim);
-      color: var(--accent);
-      border-color: rgba(108, 92, 231, 0.3);
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+      border-color: var(--accent);
     }
 
     .toolbar-spacer {
@@ -451,21 +465,10 @@
     }
 
     .block-tab.active {
-      background: var(--bg-card);
-      color: var(--text-primary);
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
       border-color: var(--accent);
-      box-shadow: 0 1px 4px rgba(108, 92, 231, 0.2);
-    }
-
-    .block-tab-id {
-      display: block;
-      font-size: 10px;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-
-    .block-tab.active .block-tab-id {
-      color: var(--accent);
     }
 
     .block-tab-count {
@@ -534,8 +537,8 @@
     }
 
     .brick-card.highlight {
-      border-color: var(--green);
-      box-shadow: 0 0 8px rgba(0, 206, 201, 0.3);
+      border-color: var(--accent);
+      box-shadow: 0 0 8px rgba(252, 196, 25, 0.2);
     }
 
     .brick-card-header {
@@ -551,25 +554,10 @@
       font-size: 11px;
       font-weight: 600;
       padding: 2px 7px;
-      border-radius: 0px;
-      color: #fff;
+      border-radius: var(--radius);
+      color: #000;
       text-align: center;
-    }
-
-    .brick-card-id.t1 {
-      background: var(--tier1);
-    }
-
-    .brick-card-id.t2 {
-      background: var(--tier2);
-    }
-
-    .brick-card-id.t3 {
-      background: var(--tier3);
-    }
-
-    .brick-card-id.t4 {
-      background: var(--tier4);
+      background: var(--accent);
     }
 
     .brick-card-title {
@@ -641,7 +629,7 @@
     }
 
     .brick-pane-mini-label.ko {
-      color: var(--green);
+      color: var(--text-secondary);
     }
 
     .brick-card-textarea {
@@ -653,8 +641,8 @@
       color: var(--text-primary);
       font-family: inherit;
       font-size: 13px;
-      line-height: 1.6;
-      padding: 8px 10px;
+      line-height: 1.7;
+      padding: 10px 12px;
       resize: vertical;
       outline: none;
       transition: border-color 0.2s ease;
@@ -767,8 +755,8 @@
       display: block;
       width: 100%;
       padding: 10px 0;
-      background: #00cec9;
-      color: #0d0f13;
+      background: var(--accent);
+      color: #000;
       font-family: inherit;
       font-size: 13px;
       font-weight: 700;
@@ -781,7 +769,7 @@
     }
 
     .btn-mint:hover {
-      background: #00b5b1;
+      background: var(--accent-hover);
     }
 
     /* ── Mobile Menu Toggle ───────────────────────────── */
@@ -982,7 +970,7 @@
       </div>
       <div class="brick-list" id="brickList"></div>
       <div class="sidebar-section" style="padding-top: 8px; border-top: 1px solid var(--border);">
-        <a href="https://translate.google.co.kr/?sl=ko&tl=en&op=translate" target="_blank" class="btn-mint" style="background: #4285f4;">Google 번역기</a>
+        <a href="https://translate.google.co.kr/?sl=ko&tl=en&op=translate" target="_blank" class="btn-mint" style="background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border);">Google 번역기</a>
       </div>
     </aside>
 
@@ -998,7 +986,7 @@
       <div class="main-content">
         <!-- JSON Input -->
         <div class="view active" id="viewJson">
-          <div class="json-input-area">
+          <div class="json-input-area" style="padding: 16px;">
             <textarea class="json-textarea" id="jsonInput" placeholder='Block &amp; Bricks JSON을 여기에 붙여넣으세요...
 
 {
