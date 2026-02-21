@@ -32,8 +32,8 @@
       --tier4: #5c6078;
       --sidebar-width: 240px;
       --header-height: 64px;
-      --radius: 8px;
-      --radius-lg: 12px;
+      --radius: 0px;
+      --radius-lg: 0px;
     }
 
     * {
@@ -92,7 +92,6 @@
       font-weight: 600;
       color: var(--text-primary);
     }
-
 
     .header-right {
       display: flex;
@@ -191,13 +190,13 @@
 
     .brick-list::-webkit-scrollbar-thumb {
       background: var(--border);
-      border-radius: 4px;
+      border-radius: 0px;
     }
 
     .brick-nav-item {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
       padding: 8px 12px;
       border-radius: var(--radius);
       cursor: pointer;
@@ -229,9 +228,13 @@
       color: var(--text-primary);
     }
 
-    .brick-count span {
-      color: var(--green);
-      font-weight: 600;
+    .brick-nav-count {
+      font-size: 10px;
+      color: var(--text-muted);
+      background: var(--bg-input);
+      padding: 1px 6px;
+      border-radius: 0px;
+      flex-shrink: 0;
     }
 
     /* ── Main ─────────────────────────────────────────── */
@@ -281,7 +284,7 @@
     .main-content {
       flex: 1;
       overflow-y: auto;
-      padding: 24px;
+      padding: 0;
     }
 
     .main-content::-webkit-scrollbar {
@@ -294,7 +297,7 @@
 
     .main-content::-webkit-scrollbar-thumb {
       background: var(--border);
-      border-radius: 4px;
+      border-radius: 0px;
     }
 
     /* ── Views ─────────────────────────────────────────── */
@@ -396,7 +399,7 @@
       color: var(--text-primary);
       background: var(--bg-input);
       border: 1px solid var(--border);
-      border-radius: 4px;
+      border-radius: 0px;
       padding: 6px 10px;
       outline: none;
       font-family: inherit;
@@ -410,7 +413,112 @@
     .bricks-grid {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 0;
+    }
+
+    /* ── Block Tabs ───────────────────────────────────── */
+    .block-tabs {
+      display: flex;
+      gap: 4px;
+      margin: 0;
+      padding: 8px 10px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .block-tab {
+      flex: 1;
+      padding: 8px 6px;
+      font-size: 11px;
+      font-family: inherit;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      background: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .block-tab:hover {
+      color: var(--text-secondary);
+      background: var(--bg-card);
+    }
+
+    .block-tab.active {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border-color: var(--accent);
+      box-shadow: 0 1px 4px rgba(108, 92, 231, 0.2);
+    }
+
+    .block-tab-id {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .block-tab.active .block-tab-id {
+      color: var(--accent);
+    }
+
+    .block-tab-count {
+      font-size: 9px;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 1px;
+    }
+
+    .block-panel {
+      display: none;
+    }
+
+    .block-panel.active {
+      display: block;
+    }
+
+    .block-panel-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      margin-bottom: 0;
+    }
+
+    .block-panel-header .brick-card-id {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 0px;
+      color: #fff;
+    }
+
+    .block-panel-header .brick-card-title {
+      font-size: 13px;
+      color: var(--text-primary);
+      flex: 1;
+    }
+
+    .block-panel-header .brick-card-count {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .block-panel-body {
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      background: var(--bg-card);
+      overflow: hidden;
     }
 
     .brick-card {
@@ -443,7 +551,7 @@
       font-size: 11px;
       font-weight: 600;
       padding: 2px 7px;
-      border-radius: 4px;
+      border-radius: 0px;
       color: #fff;
       text-align: center;
     }
@@ -467,63 +575,78 @@
     .brick-card-title {
       font-size: 13px;
       color: var(--text-primary);
-    }
-
-    .brick-card-key {
-      font-size: 11px;
-      color: var(--green);
-      background: var(--green-dim);
-      padding: 2px 6px;
-      border-radius: 3px;
-    }
-
-    .brick-card-subtitle {
-      font-size: 11px;
-      color: var(--text-muted);
       flex: 1;
     }
 
-    /* ── Dual Pane Body ───────────────────────────────── */
-    .brick-card-body {
+    .brick-card-count {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ── Field Groups ─────────────────────────────────── */
+    .brick-field-group {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brick-field-group:last-child {
+      border-bottom: none;
+    }
+
+    .brick-field-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .brick-field-name {
+      font-size: 11px;
+      color: var(--green);
+      background: var(--green-dim);
+      padding: 2px 8px;
+      border-radius: 0px;
+    }
+
+    .brick-field-name-ko {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: 6px;
+    }
+
+    .brick-field-actions {
+      display: flex;
+      gap: 4px;
+    }
+
+    .brick-field-panes {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 8px;
     }
 
-    .brick-pane {
-      padding: 10px 14px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .brick-pane+.brick-pane {
-      border-left: 1px solid var(--border);
-    }
-
-    .brick-pane-header {
+    .brick-pane-mini-label {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 3px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .brick-pane-label {
-      font-size: 10px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .brick-pane-label.en {
+    .brick-pane-mini-label.en {
       color: var(--accent);
     }
 
-    .brick-pane-label.ko {
+    .brick-pane-mini-label.ko {
       color: var(--green);
     }
 
     .brick-card-textarea {
       width: 100%;
-      min-height: 56px;
+      min-height: 48px;
       background: var(--bg-input);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -531,7 +654,7 @@
       font-family: inherit;
       font-size: 13px;
       line-height: 1.6;
-      padding: 10px;
+      padding: 8px 10px;
       resize: vertical;
       outline: none;
       transition: border-color 0.2s ease;
@@ -583,7 +706,7 @@
 
     .output-block::-webkit-scrollbar-thumb {
       background: var(--border);
-      border-radius: 4px;
+      border-radius: 0px;
     }
 
     /* ── Toast ─────────────────────────────────────────── */
@@ -751,7 +874,7 @@
       }
 
       .main-content {
-        padding: 12px;
+        padding: 0;
       }
 
       .json-textarea {
@@ -766,24 +889,26 @@
         padding: 12px;
       }
 
-      .brick-card-body {
+      .block-tabs {
+        gap: 3px;
+        margin: 0;
+        padding: 6px 8px;
+      }
+
+      .block-tab {
+        padding: 6px 4px;
+        font-size: 10px;
+      }
+
+      .brick-field-panes {
         grid-template-columns: 1fr;
       }
 
-      .brick-pane+.brick-pane {
-        border-left: none;
-        border-top: 1px solid var(--border);
-      }
-
-      .brick-card-header {
+      .brick-card-header,
+      .block-panel-header {
         flex-wrap: wrap;
         gap: 6px;
         padding: 8px 12px;
-      }
-
-      .brick-card-subtitle {
-        width: 100%;
-        order: 3;
       }
 
       .output-block {
@@ -853,15 +978,18 @@
     <aside class="sidebar">
       <div class="sidebar-section">
         <a href="https://gemini.google.com/gem/1ZVc47ZMKQZEibf5pJyo6A_ZXgcRoBNv9?usp=sharing" target="_blank" class="btn-mint">이미지생성</a>
-        <div class="sidebar-label" style="margin-top: 16px;">브릭 목록</div>
+        <div class="sidebar-label" style="margin-top: 16px;">블록 목록</div>
       </div>
       <div class="brick-list" id="brickList"></div>
+      <div class="sidebar-section" style="padding-top: 8px; border-top: 1px solid var(--border);">
+        <a href="https://translate.google.co.kr/?sl=ko&tl=en&op=translate" target="_blank" class="btn-mint" style="background: #4285f4;">Google 번역기</a>
+      </div>
     </aside>
 
     <main class="main">
       <div class="main-toolbar">
         <button class="toolbar-tab active" data-view="json">JSON 입력</button>
-        <button class="toolbar-tab" data-view="bricks">브릭 편집</button>
+        <button class="toolbar-tab" data-view="bricks">블록 편집</button>
         <button class="toolbar-tab" data-view="output">출력 결과</button>
         <div class="toolbar-spacer"></div>
         <button class="btn btn-sm" id="btnReset">초기화</button>
@@ -874,10 +1002,15 @@
             <textarea class="json-textarea" id="jsonInput" placeholder='Block &amp; Bricks JSON을 여기에 붙여넣으세요...
 
 {
-  "prompt_metadata": { "title": "...", "style": "...", "aspect_ratio": "--ar 3:4" },
-  "bricks": { "archetype": "...", ... },
-  "translations": { "archetype": "...", ... },
-  "brick_priority_order": ["archetype", "composition", ...]
+  "metadata": { "title": "...", "target_platform": "...", "aspect_ratio": "16:9" },
+  "blocks": {
+    "b1_subject": { "archetype": "...", "demographics": "...", ... },
+    "b2_environment": { "location": "...", "era": "...", ... },
+    "b3_lighting_atmosphere": { "key_light": "...", ... },
+    "b4_camera_motion": { "shot_size": "...", ... },
+    "b5_render_protocol": { "render_engine": "...", ... }
+  },
+  "translations": { "archetype": "...", "demographics": "...", ... }
 }'></textarea>
             <div class="json-actions">
               <button class="btn btn-primary" id="btnApply">
@@ -896,10 +1029,11 @@
         <div class="view" id="viewBricks">
           <div id="bricksEmpty" class="empty-state">
             <div class="empty-state-icon">{ }</div>
-            <div class="empty-state-text">아직 불러온 브릭이 없습니다.<br>JSON 입력 탭에서 데이터를 붙여넣고 적용하세요.</div>
+            <div class="empty-state-text">아직 불러온 블록이 없습니다.<br>JSON 입력 탭에서 데이터를 붙여넣고 적용하세요.</div>
           </div>
           <div id="bricksContent" style="display:none;">
-            <div class="metadata-bar" id="metadataBar"></div>
+            <div class="metadata-bar" id="metadataBar" style="display:none;"></div>
+            <div class="block-tabs" id="blockTabs"></div>
             <div class="bricks-grid" id="bricksGrid"></div>
           </div>
         </div>
@@ -908,15 +1042,22 @@
         <div class="view" id="viewOutput">
           <div id="outputEmpty" class="empty-state">
             <div class="empty-state-icon">{ }</div>
-            <div class="empty-state-text">아직 출력 결과가 없습니다.<br>브릭을 먼저 불러오고 편집하세요.</div>
+            <div class="empty-state-text">아직 출력 결과가 없습니다.<br>블록을 먼저 불러오고 편집하세요.</div>
           </div>
           <div id="outputContent" style="display:none;">
             <div class="output-section">
               <div class="output-section-header">
-                <div class="output-section-title">PART 3: Structured Text Prompt</div>
+                <div class="output-section-title">Structured Text Prompt</div>
                 <button class="btn btn-sm" onclick="copyOutput('outputStructured')">복사</button>
               </div>
               <div class="output-block" id="outputStructured"></div>
+            </div>
+            <div class="output-section">
+              <div class="output-section-header">
+                <div class="output-section-title">JSON Export</div>
+                <button class="btn btn-sm" onclick="copyOutput('outputJson')">복사</button>
+              </div>
+              <div class="output-block" id="outputJson"></div>
             </div>
           </div>
         </div>
@@ -927,70 +1068,111 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    const BRICK_DEFS = [
-      { id: 'B01', key: 'archetype', name: 'Archetype', nameKo: '아키타입', sub: 'Identity + Demographics + Physique', tier: 1 },
-      { id: 'B02', key: 'skin_surface', name: 'Skin / Surface', nameKo: '표면 질감', sub: 'Texture + Imperfection + Materiality', tier: 3 },
-      { id: 'B03', key: 'target_object', name: 'Target / Object', nameKo: '핵심 오브젝트', sub: 'Focal Item + Anchor + Interaction', tier: 2 },
-      { id: 'B04', key: 'contrast_subject', name: 'Contrast Subject', nameKo: '대비 요소', sub: 'Scale Foil + Tension Element', tier: 4 },
-      { id: 'B05', key: 'expression', name: 'Expression', nameKo: '표정', sub: 'Emotion + Micro-Muscle + Gaze', tier: 3 },
-      { id: 'B06', key: 'pose', name: 'Pose', nameKo: '포즈', sub: 'Action Line + Silhouette + Weight', tier: 3 },
-      { id: 'B07', key: 'signature', name: 'Signature', nameKo: '시그니처 효과', sub: 'Atmosphere + VFX + Particles', tier: 2 },
-      { id: 'B08', key: 'environment', name: 'Environment', nameKo: '환경', sub: 'Location + Architecture + Weather', tier: 2 },
-      { id: 'B09', key: 'lighting', name: 'Lighting', nameKo: '조명', sub: 'Source + Temperature + Shadow', tier: 1 },
-      { id: 'B10', key: 'composition', name: 'Composition', nameKo: '구도', sub: 'Camera Angle + Hierarchy + Framing', tier: 1 },
-      { id: 'B11', key: 'camera', name: 'Camera', nameKo: '카메라', sub: 'Optics + Format + Rendering', tier: 4 },
-      { id: 'B12', key: 'exclusion', name: 'Exclusion', nameKo: '제외 영역', sub: 'Anti-Prompt + Avoidance Layer', tier: 4 },
+    // ── Block Definitions ─────────────────────────────────
+    const BLOCK_DEFS = [
+      {
+        id: 'b1', key: 'b1_subject', name: 'Subject', nameKo: '피사체', tier: 1,
+        fields: [
+          { key: 'archetype', name: 'Archetype', nameKo: '아키타입' },
+          { key: 'demographics', name: 'Demographics', nameKo: '인구통계' },
+          { key: 'physique', name: 'Physique', nameKo: '체격' },
+          { key: 'wardrobe', name: 'Wardrobe', nameKo: '의상' },
+          { key: 'skin_surface', name: 'SkinSurface', nameKo: '표면 질감' },
+          { key: 'expression', name: 'Expression', nameKo: '표정' },
+          { key: 'gaze_vector', name: 'GazeVector', nameKo: '시선 방향' },
+          { key: 'pose', name: 'Pose', nameKo: '포즈' },
+          { key: 'target_object', name: 'TargetObject', nameKo: '핵심 오브젝트' },
+        ]
+      },
+      {
+        id: 'b2', key: 'b2_environment', name: 'Environment', nameKo: '환경', tier: 2,
+        fields: [
+          { key: 'location', name: 'Location', nameKo: '장소' },
+          { key: 'architecture_style', name: 'ArchitectureStyle', nameKo: '건축 양식' },
+          { key: 'era', name: 'Era', nameKo: '시대' },
+          { key: 'time_of_day', name: 'TimeOfDay', nameKo: '시간대' },
+          { key: 'weather', name: 'Weather', nameKo: '날씨' },
+          { key: 'ground_surface', name: 'GroundSurface', nameKo: '지면' },
+          { key: 'background_depth', name: 'BackgroundDepth', nameKo: '배경 심도' },
+        ]
+      },
+      {
+        id: 'b3', key: 'b3_lighting_atmosphere', name: 'Lighting & Atmosphere', nameKo: '조명 & 분위기', tier: 1,
+        fields: [
+          { key: 'key_light', name: 'KeyLight', nameKo: '키 라이트' },
+          { key: 'fill_light', name: 'FillLight', nameKo: '필 라이트' },
+          { key: 'backlight_rim', name: 'BacklightRim', nameKo: '백라이트/림' },
+          { key: 'color_temperature', name: 'ColorTemperature', nameKo: '색온도' },
+          { key: 'shadow_character', name: 'ShadowCharacter', nameKo: '그림자 특성' },
+          { key: 'signature_particles', name: 'SignatureParticles', nameKo: '시그니처 파티클' },
+          { key: 'atmospheric_haze', name: 'AtmosphericHaze', nameKo: '대기 헤이즈' },
+          { key: 'color_palette', name: 'ColorPalette', nameKo: '색상 팔레트' },
+        ]
+      },
+      {
+        id: 'b4', key: 'b4_camera_motion', name: 'Camera & Motion', nameKo: '카메라 & 모션', tier: 3,
+        fields: [
+          { key: 'shot_size', name: 'ShotSize', nameKo: '샷 사이즈' },
+          { key: 'camera_angle', name: 'CameraAngle', nameKo: '카메라 앵글' },
+          { key: 'lens_focal_length', name: 'LensFocalLength', nameKo: '렌즈 초점거리' },
+          { key: 'aperture_dof', name: 'ApertureDOF', nameKo: '조리개/심도' },
+          { key: 'camera_movement', name: 'CameraMovement', nameKo: '카메라 무브먼트' },
+          { key: 'subject_dynamics', name: 'SubjectDynamics', nameKo: '피사체 다이나믹스' },
+        ]
+      },
+      {
+        id: 'b5', key: 'b5_render_protocol', name: 'Render Protocol', nameKo: '렌더 프로토콜', tier: 4,
+        fields: [
+          { key: 'render_engine', name: 'RenderEngine', nameKo: '렌더 엔진' },
+          { key: 'medium_style', name: 'MediumStyle', nameKo: '매체 스타일' },
+          { key: 'imperfection_injector', name: 'ImperfectionInjector', nameKo: '불완전 요소' },
+          { key: 'contrast_subject', name: 'ContrastSubject', nameKo: '대비 요소' },
+          { key: 'exclusion', name: 'Exclusion', nameKo: '제외 영역' },
+        ]
+      },
     ];
-
-    const PRIORITY_ORDER = [
-      'archetype', 'composition', 'lighting', 'target_object',
-      'environment', 'signature', 'skin_surface', 'expression',
-      'pose', 'camera', 'contrast_subject', 'exclusion'
-    ];
-
-    const LEGACY_MAP = {
-      'B01_archetype': 'archetype', 'B02_skin_surface': 'skin_surface', 'B03_target_object': 'target_object',
-      'B04_contrast_subject': 'contrast_subject', 'B05_expression': 'expression', 'B06_pose': 'pose',
-      'B07_signature': 'signature', 'B08_environment': 'environment', 'B09_lighting': 'lighting',
-      'B10_composition': 'composition', 'B11_camera': 'camera', 'B12_exclusion': 'exclusion',
-    };
-    const LEGACY_PRI = {
-      'B01': 'archetype', 'B02': 'skin_surface', 'B03': 'target_object', 'B04': 'contrast_subject',
-      'B05': 'expression', 'B06': 'pose', 'B07': 'signature', 'B08': 'environment',
-      'B09': 'lighting', 'B10': 'composition', 'B11': 'camera', 'B12': 'exclusion',
-    };
 
     let state = {
       metadata: {},
-      bricks: {},
-      translations: {},
-      priorityOrder: [...PRIORITY_ORDER],
+      blocks: {},        // { b1_subject: { archetype: '...', ... }, ... }
+      translations: {},  // flat: { archetype: '...', demographics: '...', ... }
       loaded: false,
     };
 
-    function defByKey(k) { return BRICK_DEFS.find(b => b.key === k); }
     function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    let activeBlockKey = BLOCK_DEFS[0].key;
+
+    function switchBlock(blockKey) {
+      activeBlockKey = blockKey;
+      // Update block tabs
+      document.querySelectorAll('.block-tab').forEach(t => t.classList.toggle('active', t.dataset.block === blockKey));
+      // Update panels
+      document.querySelectorAll('.block-panel').forEach(p => p.classList.toggle('active', p.dataset.block === blockKey));
+      // Update sidebar
+      document.querySelectorAll('.brick-nav-item').forEach((n, i) => n.classList.toggle('active', BLOCK_DEFS[i].key === blockKey));
+      // Auto-resize textareas in the active panel
+      const activePanel = document.querySelector(`.block-panel[data-block="${blockKey}"]`);
+      if (activePanel) {
+        activePanel.querySelectorAll('.brick-card-textarea').forEach(ta => autoResize(ta));
+      }
+    }
 
     // ── Sidebar ──────────────────────────────────────────
     function renderSidebar() {
       const list = document.getElementById('brickList');
       list.innerHTML = '';
-      BRICK_DEFS.forEach(b => {
+      BLOCK_DEFS.forEach(block => {
         const el = document.createElement('div');
-        el.className = 'brick-nav-item';
-        el.innerHTML = `<div class="brick-nav-name">${b.nameKo}</div>`;
+        el.className = 'brick-nav-item' + (block.key === activeBlockKey ? ' active' : '');
+        const filled = state.loaded ? block.fields.filter(f => (state.blocks[block.key]?.[f.key] || '').trim()).length : 0;
+        el.innerHTML = `
+          <div class="brick-nav-name">${block.nameKo}</div>
+          ${state.loaded ? `<span class="brick-nav-count">${filled}/${block.fields.length}</span>` : ''}
+        `;
         el.addEventListener('click', () => {
           switchView('bricks');
-          setTimeout(() => {
-            const card = document.getElementById('card-' + b.key);
-            document.querySelectorAll('.brick-card.highlight').forEach(c => c.classList.remove('highlight'));
-            if (card) {
-              card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              card.classList.add('highlight');
-            }
-            document.querySelectorAll('.brick-nav-item').forEach(n => n.classList.remove('active'));
-            el.classList.add('active');
-          }, 50);
+          if (state.loaded) switchBlock(block.key);
         });
         list.appendChild(el);
       });
@@ -1017,53 +1199,50 @@
       let data;
       try { data = JSON.parse(raw); } catch (e) { st.className = 'json-status error'; st.textContent = 'JSON 파싱 오류: ' + e.message; return; }
 
-      if (data.prompt_metadata) {
-        state.metadata = {
-          title: data.prompt_metadata.title || '',
-          style: data.prompt_metadata.style || '',
-          genre_preset: data.prompt_metadata.genre_preset || '',
-          aspect_ratio: data.prompt_metadata.aspect_ratio || '--ar 3:4',
-          target_platform: data.prompt_metadata.target_platform || '',
-        };
+      // Metadata
+      if (data.metadata) {
+        state.metadata = { ...data.metadata };
       }
 
-      if (data.bricks) {
-        state.bricks = {};
-        BRICK_DEFS.forEach(b => {
-          const lk = Object.keys(LEGACY_MAP).find(k => LEGACY_MAP[k] === b.key);
-          state.bricks[b.key] = data.bricks[b.key] || data.bricks[lk] || '';
+      // Blocks
+      if (data.blocks) {
+        state.blocks = {};
+        BLOCK_DEFS.forEach(block => {
+          state.blocks[block.key] = {};
+          const src = data.blocks[block.key] || {};
+          block.fields.forEach(field => {
+            state.blocks[block.key][field.key] = src[field.key] || '';
+          });
         });
       }
 
-      // translations
+      // Translations (flat)
       state.translations = {};
       if (data.translations) {
-        BRICK_DEFS.forEach(b => {
-          state.translations[b.key] = data.translations[b.key] || '';
+        BLOCK_DEFS.forEach(block => {
+          block.fields.forEach(field => {
+            state.translations[field.key] = data.translations[field.key] || '';
+          });
         });
-      }
-
-      if (data.brick_priority_order && Array.isArray(data.brick_priority_order)) {
-        state.priorityOrder = data.brick_priority_order.map(i => LEGACY_PRI[i] || i);
-      } else {
-        state.priorityOrder = [...PRIORITY_ORDER];
       }
 
       state.loaded = true;
-      updateHeaderBadges();
       renderSidebar();
       renderBricksEditor();
       renderOutput();
 
-      const fc = BRICK_DEFS.filter(b => state.bricks[b.key] && state.bricks[b.key].trim()).length;
+      let fieldCount = 0;
+      BLOCK_DEFS.forEach(block => {
+        block.fields.forEach(field => {
+          if ((state.blocks[block.key]?.[field.key] || '').trim()) fieldCount++;
+        });
+      });
       st.className = 'json-status success';
-      st.textContent = `파싱 완료. ${fc}개 브릭 로드됨.`;
+      st.textContent = `파싱 완료. ${BLOCK_DEFS.length}개 블록, ${fieldCount}개 필드 로드됨.`;
       document.getElementById('btnExportAll').disabled = false;
       showToast('JSON이 적용되었습니다', 'success');
       setTimeout(() => switchView('bricks'), 400);
     }
-
-    function updateHeaderBadges() {}
 
     // ── Bricks Editor ────────────────────────────────────
     function renderBricksEditor() {
@@ -1074,97 +1253,184 @@
       // Metadata
       const metaBar = document.getElementById('metadataBar');
       metaBar.innerHTML = '';
-      [{ key: 'title', label: '제목' }, { key: 'style', label: '스타일' }, { key: 'genre_preset', label: '장르 프리셋' }, { key: 'aspect_ratio', label: '비율' }, { key: 'target_platform', label: '플랫폼' }].forEach(f => {
+      [
+        { key: 'title', label: '제목' },
+        { key: 'target_platform', label: '플랫폼' },
+        { key: 'aspect_ratio', label: '비율' },
+        { key: 'workflow_id', label: '워크플로우 ID' },
+      ].forEach(f => {
         const div = document.createElement('div');
         div.className = 'meta-item';
         div.innerHTML = `<div class="meta-item-label">${f.label}</div><input class="meta-item-value" data-meta="${f.key}" value="${escHtml(state.metadata[f.key] || '')}">`;
         metaBar.appendChild(div);
       });
       metaBar.querySelectorAll('input').forEach(inp => {
-        inp.addEventListener('input', () => { state.metadata[inp.dataset.meta] = inp.value; updateHeaderBadges(); });
+        inp.addEventListener('input', () => { state.metadata[inp.dataset.meta] = inp.value; });
       });
 
-      // Brick cards (dual pane)
+      // Block tabs
+      const tabsContainer = document.getElementById('blockTabs');
+      tabsContainer.innerHTML = '';
+      BLOCK_DEFS.forEach(block => {
+        const filled = block.fields.filter(f => (state.blocks[block.key]?.[f.key] || '').trim()).length;
+        const tab = document.createElement('button');
+        tab.className = 'block-tab' + (block.key === activeBlockKey ? ' active' : '');
+        tab.dataset.block = block.key;
+        tab.textContent = block.nameKo;
+        tab.addEventListener('click', () => switchBlock(block.key));
+        tabsContainer.appendChild(tab);
+      });
+
+      // Block panels
       const grid = document.getElementById('bricksGrid');
       grid.innerHTML = '';
-      BRICK_DEFS.forEach(b => {
-        const card = document.createElement('div');
-        card.className = 'brick-card';
-        card.id = 'card-' + b.key;
-        card.innerHTML = `
-          <div class="brick-card-header">
-            <span class="brick-card-id t${b.tier}">${b.nameKo}</span>
-            <span class="brick-card-key">${b.key}</span>
-            <span class="brick-card-subtitle">${b.sub}</span>
-          </div>
-          <div class="brick-card-body">
-            <div class="brick-pane">
-              <div class="brick-pane-header">
-                <span class="brick-pane-label en">ENGLISH</span>
-                <button class="btn btn-sm" data-copy-en="${b.key}">복사</button>
-              </div>
-              <textarea class="brick-card-textarea" data-brick-en="${b.key}" placeholder="English prompt...">${escHtml(state.bricks[b.key] || '')}</textarea>
-            </div>
-            <div class="brick-pane">
-              <div class="brick-pane-header">
-                <span class="brick-pane-label ko">번역</span>
-                <button class="btn btn-sm" data-copy-ko="${b.key}">복사</button>
-              </div>
-              <textarea class="brick-card-textarea" data-brick-ko="${b.key}" placeholder="한국어 번역...">${escHtml(state.translations[b.key] || '')}</textarea>
-            </div>
-          </div>
+
+      BLOCK_DEFS.forEach(block => {
+        const panel = document.createElement('div');
+        panel.className = 'block-panel' + (block.key === activeBlockKey ? ' active' : '');
+        panel.dataset.block = block.key;
+
+        const filled = block.fields.filter(f => (state.blocks[block.key]?.[f.key] || '').trim()).length;
+
+        // Panel header
+        const header = document.createElement('div');
+        header.className = 'block-panel-header';
+        header.innerHTML = `
+          <span class="brick-card-id t${block.tier}">${block.id.toUpperCase()}</span>
+          <span class="brick-card-title">${block.nameKo} &mdash; ${block.name}</span>
+          <span class="brick-card-count">${filled}/${block.fields.length}</span>
         `;
-        grid.appendChild(card);
+        panel.appendChild(header);
+
+        // Panel body
+        const body = document.createElement('div');
+        body.className = 'block-panel-body';
+
+        block.fields.forEach(field => {
+          const group = document.createElement('div');
+          group.className = 'brick-field-group';
+
+          const enVal = escHtml(state.blocks[block.key]?.[field.key] || '');
+          const koVal = escHtml(state.translations[field.key] || '');
+
+          group.innerHTML = `
+            <div class="brick-field-header">
+              <div>
+                <span class="brick-field-name">${field.key}</span>
+                <span class="brick-field-name-ko">${field.nameKo}</span>
+              </div>
+            </div>
+            <div class="brick-field-panes">
+              <div>
+                <div class="brick-pane-mini-label ko">한국어 <div style="display:flex;gap:4px;"><button class="btn btn-sm" data-paste-field-ko="${field.key}">붙여넣기</button><button class="btn btn-sm" data-copy-field-ko="${field.key}">복사</button></div></div>
+                <textarea class="brick-card-textarea" data-trans="${field.key}" placeholder="한국어...">${koVal}</textarea>
+              </div>
+              <div>
+                <div class="brick-pane-mini-label en">ENGLISH <div style="display:flex;gap:4px;"><button class="btn btn-sm" data-paste-field-en="${block.key}.${field.key}">붙여넣기</button><button class="btn btn-sm" data-copy-field-en="${block.key}.${field.key}">복사</button></div></div>
+                <textarea class="brick-card-textarea" data-block="${block.key}" data-field="${field.key}" placeholder="English...">${enVal}</textarea>
+              </div>
+            </div>
+          `;
+          body.appendChild(group);
+        });
+
+        panel.appendChild(body);
+        grid.appendChild(panel);
       });
 
-      // Events: EN textareas
-      grid.querySelectorAll('[data-brick-en]').forEach(ta => {
+      // EN textarea events
+      grid.querySelectorAll('[data-block][data-field]').forEach(ta => {
         autoResize(ta);
         ta.addEventListener('input', () => {
-          state.bricks[ta.dataset.brickEn] = ta.value;
+          state.blocks[ta.dataset.block][ta.dataset.field] = ta.value;
+          updateBlockTabCount(ta.dataset.block);
           renderSidebar();
           autoResize(ta);
         });
       });
 
-      // Events: KO textareas
-      grid.querySelectorAll('[data-brick-ko]').forEach(ta => {
+      // KO textarea events
+      grid.querySelectorAll('[data-trans]').forEach(ta => {
         autoResize(ta);
         ta.addEventListener('input', () => {
-          state.translations[ta.dataset.brickKo] = ta.value;
-          renderSidebar();
+          state.translations[ta.dataset.trans] = ta.value;
           autoResize(ta);
         });
       });
 
       // Copy EN
-      grid.querySelectorAll('[data-copy-en]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const val = state.bricks[btn.dataset.copyEn] || '';
-          navigator.clipboard.writeText(val).then(() => { flashCopied(btn); });
+      grid.querySelectorAll('[data-copy-field-en]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const [blockKey, fieldKey] = btn.dataset.copyFieldEn.split('.');
+          const val = state.blocks[blockKey]?.[fieldKey] || '';
+          navigator.clipboard.writeText(val).then(() => flashCopied(btn));
         });
       });
 
       // Copy KO
-      grid.querySelectorAll('[data-copy-ko]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const val = state.translations[btn.dataset.copyKo] || '';
-          navigator.clipboard.writeText(val).then(() => { flashCopied(btn); });
+      grid.querySelectorAll('[data-copy-field-ko]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const val = state.translations[btn.dataset.copyFieldKo] || '';
+          navigator.clipboard.writeText(val).then(() => flashCopied(btn));
         });
       });
 
+      // Paste KO
+      grid.querySelectorAll('[data-paste-field-ko]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const fieldKey = btn.dataset.pasteFieldKo;
+          navigator.clipboard.readText().then(text => {
+            state.translations[fieldKey] = text;
+            const ta = grid.querySelector(`textarea[data-trans="${fieldKey}"]`);
+            if (ta) { ta.value = text; autoResize(ta); }
+            flashCopied(btn);
+          });
+        });
+      });
+
+      // Paste EN
+      grid.querySelectorAll('[data-paste-field-en]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const [blockKey, fieldKey] = btn.dataset.pasteFieldEn.split('.');
+          navigator.clipboard.readText().then(text => {
+            state.blocks[blockKey][fieldKey] = text;
+            const ta = grid.querySelector(`textarea[data-block="${blockKey}"][data-field="${fieldKey}"]`);
+            if (ta) { ta.value = text; autoResize(ta); }
+            updateBlockTabCount(blockKey);
+            renderSidebar();
+            flashCopied(btn);
+          });
+        });
+      });
+    }
+
+    function updateBlockTabCount(blockKey) {
+      const block = BLOCK_DEFS.find(b => b.key === blockKey);
+      if (!block) return;
+      const filled = block.fields.filter(f => (state.blocks[block.key]?.[f.key] || '').trim()).length;
+      const tab = document.querySelector(`.block-tab[data-block="${blockKey}"]`);
+      if (tab) {
+        const countEl = tab.querySelector('.block-tab-count');
+        if (countEl) countEl.textContent = `${filled}/${block.fields.length}`;
+      }
+      const header = document.querySelector(`.block-panel[data-block="${blockKey}"] .brick-card-count`);
+      if (header) header.textContent = `${filled}/${block.fields.length}`;
     }
 
     function flashCopied(btn) {
       btn.classList.add('copied');
       const orig = btn.textContent;
-      btn.textContent = '완료';
+      btn.textContent = 'OK';
       setTimeout(() => { btn.classList.remove('copied'); btn.textContent = orig; }, 1500);
     }
 
     function autoResize(ta) {
       ta.style.height = 'auto';
-      ta.style.height = Math.max(56, ta.scrollHeight) + 'px';
+      ta.style.height = Math.max(48, ta.scrollHeight) + 'px';
     }
 
     // ── Output ───────────────────────────────────────────
@@ -1178,21 +1444,34 @@
     function renderOutput() {
       if (!state.loaded) return;
 
-      // Structured Text — (Name: value) per line
+      // Structured Text — (FieldName: value) per line
       let lines = [];
-      state.priorityOrder.forEach(key => {
-        const def = defByKey(key); if (!def) return;
-        const val = (state.bricks[key] || '').trim();
-        if (val && !val.startsWith('N/A')) lines.push(`(${def.name}: ${val})`);
+      BLOCK_DEFS.forEach(block => {
+        block.fields.forEach(field => {
+          const val = (state.blocks[block.key]?.[field.key] || '').trim();
+          if (val && !val.startsWith('N/A')) {
+            lines.push(`(${field.name}: ${val})`);
+          }
+        });
       });
-      BRICK_DEFS.forEach(b => {
-        if (!state.priorityOrder.includes(b.key)) {
-          const val = (state.bricks[b.key] || '').trim();
-          if (val && !val.startsWith('N/A')) lines.push(`(${b.name}: ${val})`);
-        }
-      });
+      document.getElementById('outputStructured').textContent = lines.join(' ');
 
-      document.getElementById('outputStructured').textContent = lines.join('\n');
+      // JSON Export
+      const exportData = {
+        metadata: { ...state.metadata },
+        blocks: {},
+        translations: {},
+      };
+      BLOCK_DEFS.forEach(block => {
+        exportData.blocks[block.key] = {};
+        block.fields.forEach(field => {
+          const val = (state.blocks[block.key]?.[field.key] || '').trim();
+          if (val) exportData.blocks[block.key][field.key] = val;
+          const tr = (state.translations[field.key] || '').trim();
+          if (tr) exportData.translations[field.key] = tr;
+        });
+      });
+      document.getElementById('outputJson').textContent = JSON.stringify(exportData, null, 2);
     }
 
     function copyOutput(id) {
@@ -1203,12 +1482,12 @@
       if (!state.loaded) return;
       generateOutput();
       const full = document.getElementById('outputStructured').textContent;
-      navigator.clipboard.writeText(full).then(() => showToast('전체 내용이 클립보드에 복사되었습니다', 'success'));
+      navigator.clipboard.writeText(full).then(() => showToast('전체 프롬프트가 클립보드에 복사되었습니다', 'success'));
     });
 
     document.getElementById('btnReset').addEventListener('click', () => {
       if (!confirm('모든 데이터를 초기화할까요?')) return;
-      state = { metadata: {}, bricks: {}, translations: {}, priorityOrder: [...PRIORITY_ORDER], loaded: false };
+      state = { metadata: {}, blocks: {}, translations: {}, loaded: false };
       document.getElementById('jsonInput').value = '';
       document.getElementById('jsonStatus').textContent = '';
       document.getElementById('bricksEmpty').style.display = '';
@@ -1223,43 +1502,96 @@
     // ── Sample ───────────────────────────────────────────
     document.getElementById('btnSample').addEventListener('click', () => {
       const sample = {
-        "prompt_metadata": {
-          "title": "The Little Shield-Maiden",
-          "style": "Pixar Stylized 3D",
-          "genre_preset": "PIXAR / STYLIZED 3D",
-          "aspect_ratio": "--ar 3:4",
-          "target_platform": "midjourney_v7"
+        "metadata": {
+          "title": "The Bloom - Jay's Awakening in Gwanghwamun",
+          "target_platform": "midjourney_v7 / kling_v3 / nano_banana",
+          "aspect_ratio": "16:9",
+          "workflow_id": "bloom-scene-001"
         },
-        "bricks": {
-          "archetype": "A spunky 8-year-old Viking girl with stylized Pixar proportions, a slightly oversized head for expressiveness, and a sturdy, energetic build.",
-          "skin_surface": "Velvety skin texture with rosy sun-kissed cheeks, a single cute star-shaped band-aid on her left knee, and soft peach fuzz visible in the rim light.",
-          "target_object": "A round wooden shield painted with a bright teal dragon, held firmly by thick leather straps that show slight fraying at the edges.",
-          "contrast_subject": "A tiny, fluffy white arctic fox pup peeking out from her oversized fur-lined boot, contrasting her brave warrior stance.",
-          "expression": "A wide, confident gap-toothed grin with sparkling turquoise eyes and eyebrows raised in excitement.",
-          "pose": "A dynamic hero pose with one foot resting on a rock, chest puffed out, and her red braided hair whipping in the wind.",
-          "signature": "Swirling autumn leaves and golden dust motes dancing in the air, with soft volumetric clouds caught in the sunset glow.",
-          "environment": "A breathtaking Nordic cliffside overlooking a sparkling fjord, featuring weathered gray rocks with patches of bright green moss.",
-          "lighting": "Cinematic three-point studio lighting with a warm golden-hour key light, cool blue shadows, and a bright rim light defining her silhouette.",
-          "composition": "A low-angle medium-full shot (MFS) to make the small character feel heroic, using the cliff edge as a leading line.",
-          "camera": "35mm equivalent focal length, f/5.6 for deep focus, rendered with cinematic ray-tracing and high-fidelity 3D animation sub-surface scattering.",
-          "exclusion": "No realistic human proportions, no gritty textures, no blood, no scary expressions, no animals on human skin, no fur growing on human."
+        "blocks": {
+          "b1_subject": {
+            "archetype": "A young male urban survivor named Jay with stylized Pixar-proportions.",
+            "demographics": "Korean male, late teens.",
+            "physique": "Lean, agile build with a slightly slouching posture.",
+            "wardrobe": "Dust-covered tactical jacket with asymmetrical straps and worn-out cargo pants.",
+            "skin_surface": "Smudged ash on the right cheek and a small healed scratch near the left eyebrow.",
+            "expression": "Awe mixed with subtle apprehension, wide-open eyes with dilated pupils.",
+            "gaze_vector": "Looking slightly upward at an off-screen massive object.",
+            "pose": "Stepping forward tentatively, one hand reaching out, weight shifting to the front foot.",
+            "target_object": "A glowing, bioluminescent seedling clutched loosely in the left hand."
+          },
+          "b2_environment": {
+            "location": "Ruined Gwanghwamun square with the shattered base of the King Sejong statue.",
+            "architecture_style": "Post-apocalyptic urban, destroyed concrete overgrown with alien flora.",
+            "era": "Near-future dystopian Seoul.",
+            "time_of_day": "Overcast twilight.",
+            "weather": "Light ash fall mixed with a gentle cool breeze.",
+            "ground_surface": "Cracked asphalt with glowing cyan moss emerging from deep fissures.",
+            "background_depth": "Silhouettes of crumbling skyscrapers looming against a hazy, clouded sky."
+          },
+          "b3_lighting_atmosphere": {
+            "key_light": "Soft cool blue ambient daylight filtering through thick overcast clouds.",
+            "fill_light": "Warm bioluminescent magenta glow reflecting upward from the seedling onto Jay's face.",
+            "backlight_rim": "Faint cyan rim light separating the character's silhouette from the dark background.",
+            "color_temperature": "Cool Kelvin 6500 base with localized warm Kelvin 3200 magenta spots.",
+            "shadow_character": "Soft, diffused shadows on the face, with deep high-contrast shadows in the environmental crevices.",
+            "signature_particles": "Floating luminescent spores mixing with falling gray ash motes.",
+            "atmospheric_haze": "Thick volumetric fog rolling low over the cracked ground.",
+            "color_palette": "Desaturated teal and gray environment contrasting with vivid magenta and cyan focal points."
+          },
+          "b4_camera_motion": {
+            "shot_size": "Medium-Wide Shot (MWS).",
+            "camera_angle": "Slight low angle looking up at the subject's face to emphasize the scale of what he sees.",
+            "lens_focal_length": "35mm equivalent focal length.",
+            "aperture_dof": "f/2.8, shallow depth of field keeping the subject and seedling crisp while blurring the background ruins.",
+            "camera_movement": "Slow push-in tracking shot with a subtle rightward orbit around the subject.",
+            "subject_dynamics": "Hair and jacket straps gently fluttering in the wind, chest rising slowly with a deep, shaky breath."
+          },
+          "b5_render_protocol": {
+            "render_engine": "Cinematic ray-tracing, Octane render global illumination.",
+            "medium_style": "High-end stylized 3D animation, combining Pixar character appeal with gritty cinematic realism.",
+            "imperfection_injector": "Asymmetrical frayed thread hanging from the jacket collar, uneven mud splatters on the boots.",
+            "contrast_subject": "Tiny, vulnerable human survivor set against the colossal, oppressive scale of the ruined city.",
+            "exclusion": "No photorealism, no flat lighting, no bright sunny sky, no 2D anime, no text, no watermarks, no clean clothes."
+          }
         },
         "translations": {
-          "archetype": "픽사 스타일의 비율을 가진 활기찬 8세 바이킹 소녀, 표현력을 위해 약간 큰 머리와 튼튼하고 에너지 넘치는 체격.",
-          "skin_surface": "장밋빛 햇살에 그을린 뺨을 가진 부드러운 피부 질감, 왼쪽 무릎에 붙은 귀여운 별 모양 반창고, 림 라이트에 비치는 부드러운 솜털.",
-          "target_object": "밝은 청록색 용이 그려진 둥근 나무 방패, 가장자리가 약간 해진 두꺼운 가죽 끈으로 단단히 고정됨.",
-          "contrast_subject": "소녀의 커다란 털 부츠 속에서 내다보는 작고 푹신한 하얀 북극여우 새끼, 소녀의 용감한 전사 자세와 대비됨.",
-          "expression": "반짝이는 터쿼이즈색 눈동자와 흥분으로 치켜올라간 눈썹, 자신감 넘치는 벌어진 앞니 미소.",
-          "pose": "바위 위에 한 발을 올리고 가슴을 펴고 서 있는 역동적인 영웅 자세, 바람에 휘날리는 붉은 땋은 머리.",
-          "signature": "공중에서 춤추는 소용돌이치는 가을 낙엽과 황금빛 먼지 입자, 석양빛을 머금은 부드러운 입체적인 구름.",
-          "environment": "반짝이는 피오르가 내려다보이는 숨막히는 북유럽 절벽, 밝은 녹색 이끼가 낀 풍화된 회색 바위들.",
-          "lighting": "따뜻한 골든 아워 키 라이트, 차가운 푸른 그림자, 실루엣을 강조하는 밝은 림 라이트가 조화된 시네마틱 3점 조명.",
-          "composition": "작은 캐릭터를 영웅적으로 보이게 하는 로우 앵글 미디엄 풀샷, 절벽 끝을 유도선으로 활용.",
-          "camera": "35mm 환산 초점 거리, 깊은 심도를 위한 f/5.6, 시네마틱 레이트레이싱과 고정밀 3D 애니메이션 하이라이트 렌더링.",
-          "exclusion": "실사 인체 비율 금지, 거친 질감 금지, 피 금지, 무서운 표정 금지, 사람 피부 위의 동물 금지, 사람 몸에서 자라는 털 금지."
-        },
-        "concept_brief": "A spunky young Viking shield-maiden stands atop a Nordic cliff, gap-toothed grin blazing with confidence as autumn leaves swirl around her. Pixar-style warmth meets cinematic drama in a golden-hour hero moment.",
-        "brick_priority_order": ["archetype", "composition", "lighting", "target_object", "environment", "signature", "skin_surface", "expression", "pose", "camera", "contrast_subject", "exclusion"]
+          "archetype": "픽사 비율로 스타일라이즈된 젊은 남성 도시 생존자 제이.",
+          "demographics": "한국인 남성, 10대 후반.",
+          "physique": "약간 구부정한 자세의 마르고 민첩한 체격.",
+          "wardrobe": "먼지 덮인 전술 재킷과 비대칭 스트랩, 낡은 카고 바지.",
+          "skin_surface": "오른쪽 뺨의 잿빛 얼룩과 왼쪽 눈썹 근처의 작게 아문 상처.",
+          "expression": "경외감과 미세한 두려움이 섞인 표정, 동공이 확장된 크게 뜬 눈.",
+          "gaze_vector": "화면 밖 거대한 물체를 향해 약간 위를 응시함.",
+          "pose": "조심스럽게 한 발 내디디며 한 손을 뻗는 자세, 앞발에 체중이 실림.",
+          "target_object": "왼손에 느슨하게 쥐고 있는 빛나는 생물 발광 씨앗.",
+          "location": "부서진 세종대왕상 기단이 있는 무너진 광화문 광장.",
+          "architecture_style": "포스트 아포칼립스 도심, 외계 식물로 뒤덮인 파괴된 콘크리트.",
+          "era": "근미래 디스토피아 서울.",
+          "time_of_day": "흐린 해질녘.",
+          "weather": "가벼운 재가 흩날리는 부드럽고 서늘한 바람.",
+          "ground_surface": "깊은 균열 사이로 빛나는 청록색 이끼가 피어나는 갈라진 아스팔트.",
+          "background_depth": "뿌연 하늘을 배경으로 우뚝 솟은 붕괴된 마천루의 실루엣.",
+          "key_light": "두꺼운 구름을 뚫고 들어오는 부드럽고 차가운 푸른색 대기광.",
+          "fill_light": "씨앗에서 제이의 얼굴로 반사되는 따뜻한 자홍색 생물 발광.",
+          "backlight_rim": "어두운 배경과 캐릭터의 실루엣을 분리하는 희미한 청록색 림 라이트.",
+          "color_temperature": "차가운 6500K 베이스에 국소적으로 따뜻한 3200K 자홍색 포인트.",
+          "shadow_character": "얼굴에는 부드럽고 분산된 그림자, 환경의 틈새에는 짙고 대비가 강한 그림자.",
+          "signature_particles": "떨어지는 회색 재와 섞여 떠다니는 발광 포자.",
+          "atmospheric_haze": "갈라진 지면 위로 낮게 깔리는 짙은 볼륨 포그.",
+          "color_palette": "선명한 자홍색과 청록색 초점 요소와 대비되는 채도 낮은 틸 앤 그레이 환경.",
+          "shot_size": "미디엄 와이드 샷 (MWS).",
+          "camera_angle": "피사체가 보는 것의 거대함을 강조하기 위해 얼굴을 올려다보는 약간 로우 앵글.",
+          "lens_focal_length": "35mm 환산 초점 거리.",
+          "aperture_dof": "f/2.8, 피사체와 씨앗은 선명하게 유지하고 배경 폐허는 흐리게 처리하는 얕은 피사계 심도.",
+          "camera_movement": "피사체를 향해 천천히 다가가며 우측으로 미세하게 궤도 회전하는 트래킹 샷.",
+          "subject_dynamics": "바람에 가볍게 흩날리는 머리카락과 재킷 끈, 깊고 떨리는 숨을 쉬며 천천히 부풀어 오르는 가슴.",
+          "render_engine": "시네마틱 레이 트레이싱, 옥테인 렌더 글로벌 일루미네이션.",
+          "medium_style": "픽사 캐릭터의 매력과 거친 시네마틱 리얼리즘이 결합된 하이엔드 스타일라이즈드 3D 애니메이션.",
+          "imperfection_injector": "재킷 깃에 비대칭적으로 매달린 풀린 실밥, 부츠의 불규칙한 진흙 얼룩.",
+          "contrast_subject": "거대하고 억압적인 폐허 도시의 스케일과 대비되는 작고 취약한 인간 생존자.",
+          "exclusion": "실사 금지, 평면적인 조명 금지, 맑은 하늘 금지, 2D 애니메이션 금지, 텍스트 금지, 워터마크 금지, 깨끗한 옷 금지."
+        }
       };
       document.getElementById('jsonInput').value = JSON.stringify(sample, null, 2);
       showToast('샘플 JSON이 로드되었습니다', 'success');
