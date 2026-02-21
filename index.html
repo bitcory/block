@@ -660,6 +660,166 @@
     .btn-mint:hover {
       background: #00b5b1;
     }
+
+    /* ── Mobile Menu Toggle ───────────────────────────── */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* ── Mobile Responsive ────────────────────────────── */
+    @media (max-width: 768px) {
+      :root {
+        --header-height: 52px;
+        --sidebar-width: 100%;
+      }
+
+      body {
+        overflow: auto;
+      }
+
+      .header {
+        padding: 0 12px;
+      }
+
+      .header-title {
+        font-size: 14px;
+      }
+
+      .header-right .btn span {
+        display: none;
+      }
+
+      .header-right .btn {
+        padding: 8px 10px;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .layout {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        overflow: auto;
+      }
+
+      .sidebar {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        display: none;
+      }
+
+      .sidebar.open {
+        display: flex;
+      }
+
+      .sidebar-section {
+        padding: 12px;
+      }
+
+      .brick-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 0 12px 12px;
+        overflow-y: visible;
+      }
+
+      .brick-nav-item {
+        margin-bottom: 0;
+        padding: 6px 10px;
+        flex-shrink: 0;
+      }
+
+      .main {
+        overflow: visible;
+      }
+
+      .main-toolbar {
+        padding: 8px 12px;
+        overflow-x: auto;
+        gap: 6px;
+      }
+
+      .main-content {
+        padding: 12px;
+      }
+
+      .json-textarea {
+        min-height: 250px;
+        font-size: 12px;
+        padding: 12px;
+      }
+
+      .metadata-bar {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 12px;
+      }
+
+      .brick-card-body {
+        grid-template-columns: 1fr;
+      }
+
+      .brick-pane+.brick-pane {
+        border-left: none;
+        border-top: 1px solid var(--border);
+      }
+
+      .brick-card-header {
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 8px 12px;
+      }
+
+      .brick-card-subtitle {
+        width: 100%;
+        order: 3;
+      }
+
+      .output-block {
+        max-height: 350px;
+        font-size: 12px;
+        padding: 12px;
+      }
+
+      .empty-state {
+        padding: 40px 16px;
+      }
+
+      .toast {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .metadata-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .header-logo-icon {
+        width: 28px;
+        height: 28px;
+      }
+
+      .toolbar-tab {
+        font-size: 11px;
+        padding: 5px 10px;
+        white-space: nowrap;
+      }
+    }
   </style>
 </head>
 
@@ -667,6 +827,11 @@
 
   <header class="header">
     <div class="header-left">
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </button>
       <a class="header-logo" href="javascript:void(0)" id="logoHome">
         <img class="header-logo-icon" src="logo.png" alt="B">
         <div>
@@ -687,7 +852,7 @@
   <div class="layout">
     <aside class="sidebar">
       <div class="sidebar-section">
-        <a href="https://gemini.google.com/gem/1rL_lXc76nS3qBLSgZDgQD4tNeo9k8gYJ?usp=sharing" target="_blank" class="btn-mint">이미지생성</a>
+        <a href="https://gemini.google.com/gem/1ZVc47ZMKQZEibf5pJyo6A_ZXgcRoBNv9?usp=sharing" target="_blank" class="btn-mint">이미지생성</a>
         <div class="sidebar-label" style="margin-top: 16px;">브릭 목록</div>
       </div>
       <div class="brick-list" id="brickList"></div>
@@ -1108,6 +1273,12 @@
     }
 
     document.getElementById('logoHome').addEventListener('click', () => location.reload());
+
+    // ── Mobile sidebar toggle ─────────────────────────────
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      document.querySelector('.sidebar').classList.toggle('open');
+    });
+
     renderSidebar();
   </script>
 </body>
