@@ -1109,7 +1109,6 @@
     <aside class="sidebar">
       <div class="sidebar-section">
         <a href="https://gemini.google.com/gem/1rL_lXc76nS3qBLSgZDgQD4tNeo9k8gYJ?usp=sharing" target="_blank" class="btn-mint">설계하기</a>
-        <div class="sidebar-label" style="margin-top: 16px;">블록 목록</div>
       </div>
       <div class="brick-list" id="brickList"></div>
       <div class="sidebar-section" style="padding-top: 8px; border-top: 1px solid var(--border);">
@@ -1365,7 +1364,9 @@
       st.textContent = `파싱 완료. ${BLOCK_DEFS.length}개 블록, ${fieldCount}개 필드 로드됨.`;
       document.getElementById('btnExportAll').disabled = false;
       showToast('JSON이 적용되었습니다', 'success');
-      switchView('bricks');
+      // 블록 편집 탭 버튼을 직접 클릭
+      const bricksTab = document.querySelector('.toolbar-tab[data-view="bricks"]');
+      if (bricksTab) bricksTab.click();
     }
 
     // ── Bricks Editor ────────────────────────────────────
@@ -1602,7 +1603,8 @@
           if (tr) exportData.translations[field.key] = tr;
         });
       });
-      document.getElementById('outputJson').textContent = JSON.stringify(exportData, null, 2);
+      const outputJsonEl = document.getElementById('outputJson');
+      if (outputJsonEl) outputJsonEl.textContent = JSON.stringify(exportData, null, 2);
     }
 
     function copyOutput(id) {
