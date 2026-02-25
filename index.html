@@ -6,40 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BLOCK &amp; BRICKS Prompt Architect</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
     :root {
-      /* shadcn zinc dark theme */
-      --background: #09090b;
-      --foreground: #fafafa;
-      --card: #0c0c0e;
-      --card-foreground: #fafafa;
-      --muted: #27272a;
-      --muted-foreground: #a1a1aa;
-      --accent: #fafafa;
-      --accent-hover: #e4e4e7;
-      --accent-foreground: #09090b;
-      --secondary: #1c1c1f;
-      --secondary-foreground: #fafafa;
-      --border: #27272a;
-      --border-hover: #3f3f46;
-      --input: #1c1c1f;
-      --ring: #fafafa;
-      --destructive: #ef4444;
-      --destructive-dim: rgba(239, 68, 68, 0.12);
-      --success: #22c55e;
-      --success-dim: rgba(34, 197, 94, 0.12);
-      --accent-dim: rgba(250, 250, 250, 0.08);
-      --tier1: #fbbf24;
-      --tier2: #f97316;
-      --tier3: #eab308;
-      --tier4: #71717a;
-      --sidebar-width: 256px;
-      --header-height: 56px;
-      --radius: 6px;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-      --radius-xl: 16px;
+      /* Neo-Brutalism Theme */
+      --background: #E8E4DE;
+      --foreground: #000000;
+      --card: #FFFFFF;
+      --card-foreground: #000000;
+      --muted: #D4CFC7;
+      --muted-foreground: #5C5C5C;
+      --accent: #FF5C00;
+      --accent-hover: #E55200;
+      --accent-foreground: #FFFFFF;
+      --secondary: #F5F0EB;
+      --secondary-foreground: #000000;
+      --border: #000000;
+      --border-hover: #000000;
+      --input: #FFFFFF;
+      --ring: #FF5C00;
+      --destructive: #FF0000;
+      --destructive-dim: rgba(255, 0, 0, 0.12);
+      --success: #00C853;
+      --success-dim: rgba(0, 200, 83, 0.12);
+      --accent-dim: rgba(255, 92, 0, 0.08);
+      --brutal-blue: #3D5AFE;
+      --brutal-yellow: #FFD600;
+      --brutal-pink: #FF6090;
+      --brutal-green: #00E676;
+      --brutal-violet: #AA00FF;
+      --tier1: #FF5C00;
+      --tier2: #3D5AFE;
+      --tier3: #00E676;
+      --tier4: #AA00FF;
+      --sidebar-width: 260px;
+      --header-height: 64px;
+      --radius: 0px;
+      --radius-md: 0px;
+      --radius-lg: 0px;
+      --radius-xl: 0px;
+      --shadow: 5px 5px 0 #000;
+      --shadow-sm: 3px 3px 0 #000;
+      --shadow-lg: 7px 7px 0 #000;
+      --border-w: 3px;
     }
 
     * {
@@ -49,7 +58,7 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--background);
       color: var(--foreground);
       min-height: 100vh;
@@ -66,14 +75,13 @@
       left: 0;
       right: 0;
       height: var(--header-height);
-      background: var(--background);
-      border-bottom: 1px solid var(--border);
+      background: var(--brutal-yellow);
+      border-bottom: var(--border-w) solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 0 24px;
       z-index: 100;
-      backdrop-filter: blur(12px);
     }
 
     .header-left {
@@ -85,84 +93,103 @@
     .header-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       text-decoration: none;
       cursor: pointer;
     }
 
     .header-logo-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: var(--radius-md);
+      width: 36px;
+      height: 36px;
+      border-radius: 0;
+      border: var(--border-w) solid var(--border);
       object-fit: cover;
+      box-shadow: var(--shadow-sm);
     }
 
     .header-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: -0.02em;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--foreground);
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
     }
 
     .header-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     /* ── Buttons ──────────────────────────────────────── */
     .btn {
-      padding: 8px 16px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--secondary);
+      padding: 9px 18px;
+      border-radius: 0;
+      border: var(--border-w) solid var(--border);
+      background: var(--card);
       color: var(--foreground);
       font-family: inherit;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
       white-space: nowrap;
       user-select: none;
+      box-shadow: var(--shadow);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .btn:hover {
-      background: var(--muted);
-      border-color: var(--border-hover);
+      transform: translate(2px, 2px);
+      box-shadow: 3px 3px 0 #000;
+    }
+
+    .btn:active {
+      transform: translate(5px, 5px);
+      box-shadow: none;
     }
 
     .btn:focus-visible {
-      outline: 2px solid var(--ring);
+      outline: 3px solid var(--accent);
       outline-offset: 2px;
     }
 
     .btn-primary {
       background: var(--accent);
-      border-color: var(--accent);
-      color: var(--accent-foreground);
-      font-weight: 600;
+      border-color: var(--border);
+      color: #fff;
+      font-weight: 800;
+      box-shadow: var(--shadow);
     }
 
     .btn-primary:hover {
       background: var(--accent-hover);
-      border-color: var(--accent-hover);
-      color: var(--accent-foreground);
+      transform: translate(2px, 2px);
+      box-shadow: 3px 3px 0 #000;
     }
 
     .btn-sm {
-      padding: 4px 10px;
-      font-size: 12px;
-      border-radius: 5px;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-sm:hover {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 #000;
     }
 
     .btn.copied {
-      border-color: var(--success) !important;
-      color: var(--success) !important;
-      background: var(--success-dim) !important;
+      border-color: var(--border) !important;
+      color: #fff !important;
+      background: var(--success) !important;
+      box-shadow: var(--shadow-sm) !important;
     }
 
     /* ── Layout ───────────────────────────────────────── */
@@ -179,7 +206,7 @@
       min-width: var(--sidebar-width);
       height: 100%;
       background: var(--card);
-      border-right: 1px solid var(--border);
+      border-right: var(--border-w) solid var(--border);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -187,64 +214,68 @@
     }
 
     .sidebar-section {
-      padding: 16px 12px 8px;
+      padding: 16px 14px 8px;
     }
 
     .sidebar-label {
       font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
+      font-weight: 800;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--muted-foreground);
+      color: var(--foreground);
       padding: 0 10px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .brick-list {
       flex: 1;
       overflow-y: auto;
-      padding: 0 8px 16px;
+      padding: 0 10px 16px;
     }
 
     .brick-list::-webkit-scrollbar {
-      width: 4px;
+      width: 6px;
     }
 
     .brick-list::-webkit-scrollbar-track {
-      background: transparent;
+      background: var(--muted);
     }
 
     .brick-list::-webkit-scrollbar-thumb {
       background: var(--border);
-      border-radius: 99px;
     }
 
     .brick-nav-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 12px;
-      border-radius: var(--radius);
+      padding: 10px 12px;
+      border-radius: 0;
       cursor: pointer;
-      transition: all 0.15s ease;
-      margin-bottom: 2px;
-      border: 1px solid transparent;
-      background: transparent;
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+      margin-bottom: 6px;
+      border: 2px solid var(--border);
+      background: var(--secondary);
+      box-shadow: var(--shadow-sm);
     }
 
     .brick-nav-item:hover {
-      background: var(--muted);
+      background: var(--brutal-yellow);
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 #000;
     }
 
     .brick-nav-item.active {
       background: var(--accent);
-      border-color: transparent;
+      color: #fff;
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
     }
 
     .brick-nav-name {
       font-size: 13px;
-      font-weight: 500;
-      color: var(--muted-foreground);
+      font-weight: 700;
+      color: var(--foreground);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -255,23 +286,24 @@
     }
 
     .brick-nav-item.active .brick-nav-name {
-      color: var(--accent-foreground);
-      font-weight: 600;
+      color: #fff;
+      font-weight: 800;
     }
 
     .brick-nav-count {
       font-size: 10px;
-      color: var(--muted-foreground);
-      padding: 2px 7px;
-      border-radius: 99px;
-      background: rgba(255,255,255,0.06);
+      color: var(--foreground);
+      padding: 2px 8px;
+      border-radius: 0;
+      background: var(--card);
+      border: 2px solid var(--border);
       flex-shrink: 0;
-      font-weight: 500;
+      font-weight: 700;
     }
 
     .brick-nav-item.active .brick-nav-count {
-      color: var(--accent-foreground);
-      background: rgba(0,0,0,0.15);
+      color: var(--foreground);
+      background: var(--brutal-yellow);
     }
 
     /* ── Main ─────────────────────────────────────────── */
@@ -285,34 +317,40 @@
     .main-toolbar {
       display: flex;
       align-items: center;
-      gap: 4px;
-      padding: 10px 20px;
-      border-bottom: 1px solid var(--border);
-      background: var(--background);
+      gap: 8px;
+      padding: 12px 24px;
+      border-bottom: var(--border-w) solid var(--border);
+      background: var(--card);
     }
 
     .toolbar-tab {
-      padding: 7px 16px;
+      padding: 8px 18px;
       font-size: 13px;
-      font-weight: 500;
-      border-radius: var(--radius);
+      font-weight: 700;
+      border-radius: 0;
       cursor: pointer;
-      color: var(--muted-foreground);
-      transition: all 0.15s ease;
-      border: none;
-      background: none;
+      color: var(--foreground);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+      border: 2px solid var(--border);
+      background: var(--secondary);
       font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      box-shadow: var(--shadow-sm);
     }
 
     .toolbar-tab:hover {
-      color: var(--foreground);
-      background: var(--muted);
+      background: var(--brutal-yellow);
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 #000;
     }
 
     .toolbar-tab.active {
-      background: var(--accent);
-      color: var(--accent-foreground);
-      font-weight: 600;
+      background: var(--foreground);
+      color: #fff;
+      font-weight: 800;
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #000;
     }
 
     .toolbar-spacer {
@@ -323,19 +361,19 @@
       flex: 1;
       overflow-y: auto;
       padding: 0;
+      background: var(--background);
     }
 
     .main-content::-webkit-scrollbar {
-      width: 6px;
+      width: 8px;
     }
 
     .main-content::-webkit-scrollbar-track {
-      background: transparent;
+      background: var(--muted);
     }
 
     .main-content::-webkit-scrollbar-thumb {
       background: var(--border);
-      border-radius: 99px;
     }
 
     /* ── Views ─────────────────────────────────────────── */
@@ -351,22 +389,22 @@
     .json-textarea {
       width: 100%;
       min-height: 400px;
-      background: var(--input);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
+      background: var(--card);
+      border: var(--border-w) solid var(--border);
+      border-radius: 0;
       color: var(--foreground);
-      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
       font-size: 13px;
       line-height: 1.7;
-      padding: 16px 20px;
+      padding: 20px;
       resize: vertical;
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: box-shadow 0.1s ease;
+      box-shadow: var(--shadow-lg);
     }
 
     .json-textarea:focus {
-      border-color: var(--ring);
-      box-shadow: 0 0 0 3px var(--accent-dim);
+      box-shadow: 7px 7px 0 var(--accent);
     }
 
     .json-textarea::placeholder {
@@ -377,7 +415,7 @@
     .json-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       margin-top: 16px;
     }
 
@@ -385,6 +423,7 @@
       font-size: 13px;
       color: var(--muted-foreground);
       margin-left: 8px;
+      font-weight: 700;
     }
 
     .json-status.success {
@@ -397,30 +436,34 @@
 
     .sample-link {
       font-size: 13px;
-      color: var(--accent);
+      color: var(--brutal-blue);
       cursor: pointer;
       margin-left: auto;
       border: none;
       background: none;
       font-family: inherit;
-      font-weight: 500;
-      transition: opacity 0.15s ease;
+      font-weight: 700;
+      transition: color 0.1s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
     }
 
     .sample-link:hover {
-      opacity: 0.8;
-      text-decoration: underline;
+      color: var(--accent);
     }
 
     /* ── Bricks Editor ────────────────────────────────── */
     .metadata-bar {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
+      gap: 14px;
       margin-bottom: 0;
-      padding: 16px 20px;
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
+      padding: 18px 24px;
+      background: var(--brutal-yellow);
+      border-bottom: var(--border-w) solid var(--border);
     }
 
     .meta-item {
@@ -430,26 +473,29 @@
     }
 
     .meta-item-label {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted-foreground);
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     .meta-item-value {
       font-size: 13px;
       color: var(--foreground);
-      background: var(--input);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      background: var(--card);
+      border: var(--border-w) solid var(--border);
+      border-radius: 0;
       padding: 8px 12px;
       outline: none;
       font-family: inherit;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      font-weight: 500;
+      transition: box-shadow 0.1s ease;
+      box-shadow: var(--shadow-sm);
     }
 
     .meta-item-value:focus {
-      border-color: var(--ring);
-      box-shadow: 0 0 0 3px var(--accent-dim);
+      box-shadow: 3px 3px 0 var(--accent);
     }
 
     .bricks-grid {
@@ -461,11 +507,11 @@
     /* ── Block Tabs ───────────────────────────────────── */
     .block-tabs {
       display: flex;
-      gap: 4px;
+      gap: 0;
       margin: 0;
-      padding: 8px 12px;
-      background: var(--muted);
-      border-bottom: 1px solid var(--border);
+      padding: 0;
+      background: var(--card);
+      border-bottom: var(--border-w) solid var(--border);
       position: sticky;
       top: 0;
       z-index: 10;
@@ -473,37 +519,43 @@
 
     .block-tab {
       flex: 1;
-      padding: 8px 8px;
+      padding: 12px 8px;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 700;
       font-family: inherit;
       border: none;
-      border-radius: var(--radius);
-      background: transparent;
-      color: var(--muted-foreground);
+      border-right: 2px solid var(--border);
+      border-radius: 0;
+      background: var(--card);
+      color: var(--foreground);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: background 0.08s ease;
       text-align: center;
       line-height: 1.3;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .block-tab:last-child {
+      border-right: none;
     }
 
     .block-tab:hover {
-      color: var(--foreground);
-      background: rgba(255,255,255,0.06);
+      background: var(--brutal-yellow);
     }
 
     .block-tab.active {
-      background: var(--background);
-      color: var(--foreground);
-      font-weight: 600;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      background: var(--foreground);
+      color: #fff;
+      font-weight: 800;
     }
 
     .block-tab-count {
       font-size: 10px;
-      color: var(--muted-foreground);
+      color: inherit;
       display: block;
       margin-top: 2px;
+      opacity: 0.6;
     }
 
     .block-panel {
@@ -517,34 +569,40 @@
     .block-panel-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 14px 20px;
+      gap: 12px;
+      padding: 16px 24px;
       background: var(--secondary);
-      border-bottom: 1px solid var(--border);
+      border-bottom: var(--border-w) solid var(--border);
     }
 
     .block-panel-header .brick-card-id {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 0;
       color: #fff;
+      border: var(--border-w) solid var(--border);
+      box-shadow: var(--shadow-sm);
     }
 
     .block-panel-header .brick-card-title {
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 16px;
+      font-weight: 800;
       color: var(--foreground);
       flex: 1;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
     }
 
     .block-panel-header .brick-card-count {
       font-size: 12px;
-      color: var(--muted-foreground);
-      background: var(--muted);
-      padding: 3px 10px;
-      border-radius: 99px;
-      font-weight: 500;
+      color: var(--foreground);
+      background: var(--brutal-yellow);
+      padding: 4px 12px;
+      border-radius: 0;
+      border: 2px solid var(--border);
+      font-weight: 800;
+      box-shadow: 2px 2px 0 #000;
     }
 
     .block-panel-body {
@@ -555,19 +613,19 @@
 
     .brick-card {
       background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
+      border: var(--border-w) solid var(--border);
+      border-radius: 0;
       overflow: hidden;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: box-shadow 0.1s ease;
+      box-shadow: var(--shadow);
     }
 
     .brick-card:hover {
-      border-color: var(--border-hover);
+      box-shadow: var(--shadow-lg);
     }
 
     .brick-card.highlight {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-dim);
+      box-shadow: 7px 7px 0 var(--accent);
     }
 
     .brick-card-header {
@@ -576,22 +634,22 @@
       gap: 10px;
       padding: 12px 16px;
       background: var(--secondary);
-      border-bottom: 1px solid var(--border);
+      border-bottom: var(--border-w) solid var(--border);
     }
 
     .brick-card-id {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 5px;
-      color: var(--accent-foreground);
+      font-size: 13px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 0;
+      color: #fff;
       text-align: center;
-      background: var(--accent);
+      border: 2px solid var(--border);
     }
 
     .brick-card-title {
-      font-size: 13px;
-      font-weight: 500;
+      font-size: 14px;
+      font-weight: 700;
       color: var(--foreground);
       flex: 1;
     }
@@ -599,13 +657,14 @@
     .brick-card-count {
       font-size: 12px;
       color: var(--muted-foreground);
+      font-weight: 700;
     }
 
     /* ── Field Groups ─────────────────────────────────── */
     .brick-field-group {
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.15s ease;
+      padding: 16px 24px;
+      border-bottom: 2px solid var(--border);
+      transition: background 0.08s ease;
     }
 
     .brick-field-group:last-child {
@@ -613,32 +672,32 @@
     }
 
     .brick-field-group:hover {
-      background: rgba(255,255,255,0.01);
+      background: var(--secondary);
     }
 
     .brick-field-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .brick-field-name {
       font-size: 12px;
-      font-weight: 600;
-      color: var(--accent);
-      background: var(--accent-dim);
-      padding: 3px 10px;
-      border-radius: 5px;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      letter-spacing: -0.01em;
+      font-weight: 700;
+      color: #fff;
+      background: var(--foreground);
+      padding: 4px 12px;
+      border-radius: 0;
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      letter-spacing: 0.02em;
     }
 
     .brick-field-name-ko {
       font-size: 12px;
       color: var(--muted-foreground);
-      margin-left: 8px;
-      font-weight: 500;
+      margin-left: 10px;
+      font-weight: 600;
     }
 
     .brick-field-actions {
@@ -649,16 +708,16 @@
     .brick-field-panes {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 12px;
     }
 
     .brick-pane-mini-label {
       font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.03em;
+      font-weight: 800;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted-foreground);
-      margin-bottom: 4px;
+      margin-bottom: 5px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -669,15 +728,15 @@
     }
 
     .brick-pane-mini-label.ko {
-      color: var(--muted-foreground);
+      color: var(--brutal-blue);
     }
 
     .brick-card-textarea {
       width: 100%;
       min-height: 48px;
-      background: var(--input);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 0;
       color: var(--foreground);
       font-family: inherit;
       font-size: 13px;
@@ -685,12 +744,12 @@
       padding: 10px 12px;
       resize: vertical;
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: box-shadow 0.1s ease;
+      box-shadow: var(--shadow-sm);
     }
 
     .brick-card-textarea:focus {
-      border-color: var(--ring);
-      box-shadow: 0 0 0 3px var(--accent-dim);
+      box-shadow: 3px 3px 0 var(--brutal-blue);
     }
 
     .brick-card-textarea::placeholder {
@@ -707,20 +766,22 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .output-section-title {
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 800;
       color: var(--foreground);
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
     }
 
     .output-block {
-      background: var(--input);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 16px 20px;
+      background: var(--card);
+      border: var(--border-w) solid var(--border);
+      border-radius: 0;
+      padding: 20px;
       font-size: 13px;
       line-height: 1.7;
       color: var(--foreground);
@@ -728,19 +789,19 @@
       word-break: break-word;
       max-height: 500px;
       overflow-y: auto;
+      box-shadow: var(--shadow-lg);
     }
 
     .output-block::-webkit-scrollbar {
-      width: 4px;
+      width: 6px;
     }
 
     .output-block::-webkit-scrollbar-track {
-      background: transparent;
+      background: var(--muted);
     }
 
     .output-block::-webkit-scrollbar-thumb {
       background: var(--border);
-      border-radius: 99px;
     }
 
     /* ── Toast ─────────────────────────────────────────── */
@@ -748,17 +809,17 @@
       position: fixed;
       bottom: 24px;
       right: 24px;
-      padding: 12px 20px;
-      border-radius: var(--radius-md);
+      padding: 14px 24px;
+      border-radius: 0;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 800;
       font-family: inherit;
       z-index: 200;
       transform: translateY(80px);
       opacity: 0;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .toast.show {
@@ -767,15 +828,17 @@
     }
 
     .toast.success {
-      background: var(--success-dim);
-      border: 1px solid var(--success);
-      color: var(--success);
+      background: var(--brutal-green);
+      border: var(--border-w) solid var(--border);
+      color: var(--foreground);
+      box-shadow: var(--shadow);
     }
 
     .toast.error {
-      background: var(--destructive-dim);
-      border: 1px solid var(--destructive);
-      color: var(--destructive);
+      background: var(--destructive);
+      border: var(--border-w) solid var(--border);
+      color: #fff;
+      box-shadow: var(--shadow);
     }
 
     /* ── Empty State ──────────────────────────────────── */
@@ -789,38 +852,49 @@
     }
 
     .empty-state-icon {
-      font-size: 48px;
-      margin-bottom: 16px;
+      font-size: 64px;
+      margin-bottom: 20px;
+      color: var(--foreground);
       opacity: 0.15;
-      color: var(--muted-foreground);
+      font-weight: 800;
     }
 
     .empty-state-text {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--muted-foreground);
       line-height: 1.7;
+      font-weight: 500;
     }
 
     /* ── Sidebar Action Buttons ───────────────────────── */
     .btn-mint {
       display: block;
       width: 100%;
-      padding: 10px 0;
-      background: var(--accent);
-      color: var(--accent-foreground);
+      padding: 12px 0;
+      background: var(--brutal-yellow);
+      color: var(--foreground);
       font-family: inherit;
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 800;
       text-align: center;
       text-decoration: none;
-      border-radius: var(--radius);
-      border: none;
+      border-radius: 0;
+      border: var(--border-w) solid var(--border);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+      box-shadow: var(--shadow);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .btn-mint:hover {
-      background: var(--accent-hover);
+      transform: translate(2px, 2px);
+      box-shadow: 3px 3px 0 #000;
+    }
+
+    .btn-mint:active {
+      transform: translate(5px, 5px);
+      box-shadow: none;
     }
 
     /* ── Mobile Menu Toggle ───────────────────────────── */
@@ -831,12 +905,12 @@
       color: var(--foreground);
       cursor: pointer;
       padding: 4px;
-      border-radius: var(--radius);
-      transition: background 0.15s ease;
+      border-radius: 0;
+      transition: background 0.08s ease;
     }
 
     .menu-toggle:hover {
-      background: var(--muted);
+      background: rgba(0,0,0,0.1);
     }
 
     /* ── Tier Colors ──────────────────────────────────── */
@@ -848,8 +922,11 @@
     /* ── Mobile Responsive ────────────────────────────── */
     @media (max-width: 768px) {
       :root {
-        --header-height: 52px;
+        --header-height: 56px;
         --sidebar-width: 100%;
+        --shadow: 4px 4px 0 #000;
+        --shadow-sm: 2px 2px 0 #000;
+        --shadow-lg: 5px 5px 0 #000;
       }
 
       body {
@@ -861,7 +938,7 @@
       }
 
       .header-title {
-        font-size: 14px;
+        font-size: 16px;
       }
 
       .header-right .btn span {
@@ -869,7 +946,7 @@
       }
 
       .header-right .btn {
-        padding: 8px 10px;
+        padding: 8px 12px;
       }
 
       .menu-toggle {
@@ -888,7 +965,7 @@
         min-width: 100%;
         height: auto;
         border-right: none;
-        border-bottom: 1px solid var(--border);
+        border-bottom: var(--border-w) solid var(--border);
         display: none;
       }
 
@@ -931,7 +1008,8 @@
       .json-textarea {
         min-height: 250px;
         font-size: 12px;
-        padding: 12px;
+        padding: 14px;
+        box-shadow: var(--shadow);
       }
 
       .metadata-bar {
@@ -941,12 +1019,12 @@
       }
 
       .block-tabs {
-        gap: 3px;
-        padding: 6px 8px;
+        gap: 0;
+        padding: 0;
       }
 
       .block-tab {
-        padding: 6px 4px;
+        padding: 8px 4px;
         font-size: 10px;
       }
 
@@ -968,7 +1046,8 @@
       .output-block {
         max-height: 350px;
         font-size: 12px;
-        padding: 12px;
+        padding: 14px;
+        box-shadow: var(--shadow);
       }
 
       .empty-state {
@@ -989,14 +1068,15 @@
       }
 
       .header-logo-icon {
-        width: 26px;
-        height: 26px;
+        width: 28px;
+        height: 28px;
       }
 
       .toolbar-tab {
-        font-size: 12px;
-        padding: 6px 12px;
+        font-size: 11px;
+        padding: 6px 10px;
         white-space: nowrap;
+        box-shadow: 2px 2px 0 #000;
       }
     }
   </style>
@@ -1033,7 +1113,7 @@
       </div>
       <div class="brick-list" id="brickList"></div>
       <div class="sidebar-section" style="padding-top: 8px; border-top: 1px solid var(--border);">
-        <a href="https://translate.google.co.kr/?sl=ko&tl=en&op=translate" target="_blank" class="btn-mint" style="background: #34d399; color: #09090b;">Google 번역기</a>
+        <a href="https://translate.google.co.kr/?sl=ko&tl=en&op=translate" target="_blank" class="btn-mint" style="background: var(--brutal-green); color: var(--foreground);">Google 번역기</a>
       </div>
     </aside>
 
@@ -1071,7 +1151,6 @@
                 JSON 적용
               </button>
               <span class="json-status" id="jsonStatus"></span>
-              <button class="sample-link" id="btnSample">샘플 JSON 불러오기</button>
             </div>
           </div>
         </div>
@@ -1286,7 +1365,7 @@
       st.textContent = `파싱 완료. ${BLOCK_DEFS.length}개 블록, ${fieldCount}개 필드 로드됨.`;
       document.getElementById('btnExportAll').disabled = false;
       showToast('JSON이 적용되었습니다', 'success');
-      setTimeout(() => switchView('bricks'), 400);
+      switchView('bricks');
     }
 
     // ── Bricks Editor ────────────────────────────────────
@@ -1297,6 +1376,7 @@
 
       // Metadata
       const metaBar = document.getElementById('metadataBar');
+      metaBar.style.display = '';
       metaBar.innerHTML = '';
       [
         { key: 'title', label: '제목' },
