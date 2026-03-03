@@ -928,6 +928,138 @@
     .t3 { background: var(--tier3); }
     .t4 { background: var(--tier4); }
 
+    /* ── Login Screen ────────────────────────────────── */
+    .login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--background);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .login-overlay.hidden {
+      display: none;
+    }
+
+    .login-box {
+      background: var(--card);
+      border: var(--border-w) solid var(--border);
+      box-shadow: var(--shadow-lg);
+      padding: 48px 40px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .login-box-logo {
+      width: 64px;
+      height: 64px;
+      border: var(--border-w) solid var(--border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 20px;
+    }
+
+    .login-box-title {
+      font-size: 28px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .login-box-subtitle {
+      font-size: 14px;
+      color: var(--muted-foreground);
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+
+    .login-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 240px;
+      margin: 0 auto 24px;
+    }
+
+    .login-keypad-btn {
+      padding: 16px;
+      font-size: 22px;
+      font-weight: 800;
+      font-family: inherit;
+      border: var(--border-w) solid var(--border);
+      border-radius: 0;
+      background: var(--secondary);
+      color: var(--foreground);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+      user-select: none;
+    }
+
+    .login-keypad-btn:hover {
+      background: var(--brutal-yellow);
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 #000;
+    }
+
+    .login-keypad-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: none;
+      background: var(--brutal-yellow);
+    }
+
+    .login-keypad-btn.clear {
+      font-size: 14px;
+      background: var(--muted);
+    }
+
+    .login-display {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .login-dot {
+      width: 18px;
+      height: 18px;
+      border: var(--border-w) solid var(--border);
+      background: var(--secondary);
+      transition: background 0.15s ease;
+    }
+
+    .login-dot.filled {
+      background: var(--accent);
+    }
+
+    .login-error {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--destructive);
+      height: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    @keyframes loginShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
+    }
+
+    .login-box.shake {
+      animation: loginShake 0.4s ease;
+    }
+
     /* ── Mobile Responsive ────────────────────────────── */
     @media (max-width: 768px) {
       :root {
@@ -1093,6 +1225,36 @@
 
 <body>
 
+  <!-- Login Screen -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-box" id="loginBox">
+      <img class="login-box-logo" src="logo.png" alt="B">
+      <div class="login-box-title">BLOCK & BRICK</div>
+      <div class="login-box-subtitle">비밀번호를 입력하세요</div>
+      <div class="login-display" id="loginDisplay">
+        <div class="login-dot" data-idx="0"></div>
+        <div class="login-dot" data-idx="1"></div>
+        <div class="login-dot" data-idx="2"></div>
+        <div class="login-dot" data-idx="3"></div>
+      </div>
+      <div class="login-keypad" id="loginKeypad">
+        <button class="login-keypad-btn" data-num="1">1</button>
+        <button class="login-keypad-btn" data-num="2">2</button>
+        <button class="login-keypad-btn" data-num="3">3</button>
+        <button class="login-keypad-btn" data-num="4">4</button>
+        <button class="login-keypad-btn" data-num="5">5</button>
+        <button class="login-keypad-btn" data-num="6">6</button>
+        <button class="login-keypad-btn" data-num="7">7</button>
+        <button class="login-keypad-btn" data-num="8">8</button>
+        <button class="login-keypad-btn" data-num="9">9</button>
+        <button class="login-keypad-btn clear" data-num="clear">CLR</button>
+        <button class="login-keypad-btn" data-num="0">0</button>
+        <button class="login-keypad-btn clear" data-num="back">←</button>
+      </div>
+      <div class="login-error" id="loginError"></div>
+    </div>
+  </div>
+
   <header class="header">
     <div class="header-left">
       <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
@@ -1198,6 +1360,62 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // ── Login ─────────────────────────────────────────────
+    (function() {
+      const PASSWORD = '1124';
+      let input = '';
+      const overlay = document.getElementById('loginOverlay');
+      const box = document.getElementById('loginBox');
+      const dots = overlay.querySelectorAll('.login-dot');
+      const errorEl = document.getElementById('loginError');
+
+      function updateDots() {
+        dots.forEach((d, i) => d.classList.toggle('filled', i < input.length));
+      }
+
+      function tryLogin() {
+        if (input === PASSWORD) {
+          overlay.classList.add('hidden');
+        } else {
+          errorEl.textContent = '비밀번호가 틀렸습니다';
+          box.classList.add('shake');
+          setTimeout(() => { box.classList.remove('shake'); }, 400);
+          input = '';
+          updateDots();
+        }
+      }
+
+      document.getElementById('loginKeypad').addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-num]');
+        if (!btn) return;
+        const val = btn.dataset.num;
+        errorEl.textContent = '';
+
+        if (val === 'clear') {
+          input = '';
+        } else if (val === 'back') {
+          input = input.slice(0, -1);
+        } else {
+          if (input.length < 4) input += val;
+        }
+        updateDots();
+        if (input.length === 4) setTimeout(tryLogin, 150);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (overlay.classList.contains('hidden')) return;
+        if (e.key >= '0' && e.key <= '9') {
+          errorEl.textContent = '';
+          if (input.length < 4) input += e.key;
+          updateDots();
+          if (input.length === 4) setTimeout(tryLogin, 150);
+        } else if (e.key === 'Backspace') {
+          input = input.slice(0, -1);
+          updateDots();
+        }
+      });
+    })();
+
     // ── Block Definitions ─────────────────────────────────
     const BLOCK_DEFS = [
       {
