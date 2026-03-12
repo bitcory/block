@@ -1001,6 +1001,8 @@
       box-shadow: var(--shadow-sm);
       transition: transform 0.08s ease, box-shadow 0.08s ease;
       user-select: none;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .login-keypad-btn:hover {
@@ -1841,7 +1843,7 @@
     });
 
     // ── Sample ───────────────────────────────────────────
-    document.getElementById('btnSample').addEventListener('click', () => {
+    document.getElementById('btnSample')?.addEventListener('click', () => {
       const sample = {
         "metadata": {
           "title": "The Bloom - Jay's Awakening in Gwanghwamun",
