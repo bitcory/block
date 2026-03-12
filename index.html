@@ -913,9 +913,15 @@
       border: none;
       color: var(--foreground);
       cursor: pointer;
-      padding: 4px;
+      padding: 10px;
       border-radius: 0;
       transition: background 0.08s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .menu-toggle svg {
+      pointer-events: none;
     }
 
     .menu-toggle:hover {
@@ -1417,6 +1423,11 @@
         }
       });
     })();
+
+    // ── Mobile sidebar toggle (스크립트 최상단 배치로 안정성 확보) ──
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      document.querySelector('.sidebar').classList.toggle('open');
+    });
 
     // ── Block Definitions ─────────────────────────────────
     const BLOCK_DEFS = [
@@ -1948,11 +1959,6 @@
     }
 
     document.getElementById('logoHome').addEventListener('click', () => location.reload());
-
-    // ── Mobile sidebar toggle ─────────────────────────────
-    document.getElementById('menuToggle').addEventListener('click', () => {
-      document.querySelector('.sidebar').classList.toggle('open');
-    });
 
     renderSidebar();
   </script>
