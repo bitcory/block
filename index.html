@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>BLOCK &amp; BRICKS Prompt Architect</title>
   <style>
     @font-face { font-family: 'Paperlogy'; src: url('fonts/Paperlogy-1Thin.ttf') format('truetype'); font-weight: 100; font-style: normal; font-display: swap; }
@@ -1078,8 +1078,16 @@
         --shadow-lg: 5px 5px 0 #000;
       }
 
+      /* iOS 자동 확대 방지: 16px 이상이면 확대 안 됨 */
+      textarea,
+      input,
+      select {
+        font-size: 16px !important;
+      }
+
       body {
         overflow: auto;
+        -webkit-text-size-adjust: 100%;
       }
 
       .header {
@@ -1096,6 +1104,7 @@
 
       .header-right .btn {
         padding: 8px 12px;
+        min-height: 44px;
       }
 
       .menu-toggle {
@@ -1136,8 +1145,11 @@
 
       .brick-nav-item {
         margin-bottom: 0;
-        padding: 6px 10px;
+        padding: 8px 12px;
         flex-shrink: 0;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
       }
 
       .main {
@@ -1147,18 +1159,36 @@
       .main-toolbar {
         padding: 8px 12px;
         overflow-x: auto;
-        gap: 4px;
+        gap: 6px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .toolbar-tab {
+        min-height: 44px;
+        touch-action: manipulation;
       }
 
       .main-content {
         padding: 0;
       }
 
+      .json-input-area {
+        padding: 12px !important;
+      }
+
       .json-textarea {
-        min-height: 250px;
-        font-size: 15px;
+        min-height: 220px;
         padding: 14px;
         box-shadow: var(--shadow);
+      }
+
+      .json-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .json-actions .btn {
+        min-height: 44px;
       }
 
       .metadata-bar {
@@ -1170,19 +1200,39 @@
       .block-tabs {
         gap: 0;
         padding: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       .block-tab {
-        padding: 8px 4px;
-        font-size: 15px;
+        padding: 10px 6px;
+        font-size: 13px;
+        min-height: 44px;
+        white-space: nowrap;
+        flex: 1 0 auto;
       }
 
       .brick-field-panes {
         grid-template-columns: 1fr;
+        gap: 8px;
       }
 
       .brick-field-group {
         padding: 12px 14px;
+      }
+
+      .brick-field-header {
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+
+      .brick-pane-mini-label {
+        font-size: 13px;
+      }
+
+      .brick-pane-mini-label .btn-sm {
+        min-height: 36px;
+        padding: 4px 10px;
       }
 
       .brick-card-header,
@@ -1192,15 +1242,27 @@
         padding: 10px 14px;
       }
 
+      .block-panel-header .brick-card-title {
+        font-size: 16px;
+      }
+
       .output-block {
         max-height: 350px;
-        font-size: 15px;
         padding: 14px;
         box-shadow: var(--shadow);
       }
 
+      .output-section-header {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
       .empty-state {
         padding: 40px 16px;
+      }
+
+      .empty-state-icon {
+        font-size: 48px;
       }
 
       .toast {
@@ -1208,6 +1270,12 @@
         right: 12px;
         bottom: 12px;
         text-align: center;
+      }
+
+      /* 버튼 터치 타겟 최소 크기 */
+      .btn, .btn-sm {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
       }
     }
 
@@ -1222,10 +1290,24 @@
       }
 
       .toolbar-tab {
-        font-size: 15px;
-        padding: 6px 10px;
+        font-size: 14px;
+        padding: 8px 10px;
         white-space: nowrap;
         box-shadow: 2px 2px 0 #000;
+      }
+
+      .block-tab {
+        font-size: 12px;
+        padding: 8px 4px;
+      }
+
+      .brick-field-name {
+        font-size: 13px;
+        padding: 3px 8px;
+      }
+
+      .brick-field-name-ko {
+        font-size: 13px;
       }
     }
   </style>
