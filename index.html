@@ -73,7 +73,7 @@
       --tier4: linear-gradient(135deg, #334155, #0f172a);
 
       --sidebar-width: 240px;
-      --header-height: 188px;
+      --header-height: 128px;
     }
 
     * {
@@ -111,9 +111,9 @@
       background: var(--g-gradient);
       color: #ffffff;
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
-      padding: 22px 28px 0;
+      padding: 14px 28px 32px;
       z-index: 100;
       overflow: hidden;
       isolation: isolate;
@@ -150,7 +150,7 @@
       right: 0;
       bottom: -1px;
       width: 100%;
-      height: 54px;
+      height: 36px;
       display: block;
       z-index: 1;
       pointer-events: none;
@@ -173,9 +173,9 @@
     }
 
     .header-logo-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.45);
       object-fit: cover;
       box-shadow: 0 6px 18px rgba(0, 55, 30, 0.35);
@@ -196,7 +196,7 @@
     }
 
     .header-title {
-      font-size: clamp(26px, 7vw, 34px);
+      font-size: clamp(22px, 5vw, 28px);
       font-weight: 900;
       color: #ffffff;
       letter-spacing: -0.02em;
@@ -432,7 +432,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      overflow: visible;
       min-width: 0;
     }
 
@@ -440,16 +440,17 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 14px;
-      margin: -26px 16px 0;
+      padding: 8px 12px;
+      margin: -22px 16px 0;
       border-radius: var(--pill);
-      background: rgba(255, 255, 255, 0.72);
+      background: rgba(255, 255, 255, 0.82);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.9);
       box-shadow: var(--shadow-card);
       position: relative;
-      z-index: 5;
+      z-index: 200;
+      flex-shrink: 0;
     }
 
     .toolbar-tab {
@@ -1210,7 +1211,7 @@
     /* ── Mobile Responsive ────────────────────────────── */
     @media (max-width: 768px) {
       :root {
-        --header-height: 150px;
+        --header-height: 108px;
         --sidebar-width: 100%;
       }
 
@@ -1227,7 +1228,7 @@
       }
 
       .header {
-        padding: 16px 14px 0;
+        padding: 10px 14px 26px;
       }
 
       .header-title {
@@ -1253,7 +1254,7 @@
       }
 
       .hero-wave {
-        height: 40px;
+        height: 28px;
       }
 
       .menu-toggle {
@@ -1304,7 +1305,7 @@
 
       .main-toolbar {
         padding: 6px 8px;
-        margin: -22px 12px 0;
+        margin: -18px 12px 0;
         overflow-x: auto;
         gap: 4px;
         -webkit-overflow-scrolling: touch;
